@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DistanceConverter {
     internal class Program {
@@ -23,6 +24,7 @@ namespace DistanceConverter {
                         Console.WriteLine($"{feet}ft = {meter:0.0000}m");
                     }
                 }
+
 
                 //メートルからフィートへの対応表を出力
                 static void PrintMeterToFeetList(int start, int end) {
