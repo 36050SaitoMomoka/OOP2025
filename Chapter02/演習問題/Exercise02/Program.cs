@@ -1,5 +1,5 @@
 ﻿
-using DistanceConverter;
+using Exercise02;
 using Microsoft.VisualBasic;
 using System.Security.Cryptography;
 
@@ -7,34 +7,28 @@ namespace Exercise02 {
     internal class Program {
         static void Main(string[] args) {
 
-            Console.WriteLine("１：インチからメートル");
-            Console.WriteLine("２：メートルからインチ");
-            Console.Write(">");
-            string conversion = Console.ReadLine();      //１or２入力
+            //Console.WriteLine("１：ヤードからメートル");
+            //Console.WriteLine("２：メートルからヤード");
+            //Console.Write(">");
+            //string conversion = Console.ReadLine();      //１or２入力
 
-            Console.Write("はじめ:");  //コンソール入力
-            int start = int.Parse(Console.ReadLine());   //文字列で取り込んで整数へ変換
-            Console.Write("おわり:");  //コンソール入力
-            int end = int.Parse(Console.ReadLine());   //文字列で取り込んで整数へ変換
+            Console.Write("変換する数値:");
+            int number = int.Parse(Console.ReadLine());
 
-            if (conversion == "1") {
-                PrintInchToMeterList(start, end);
-            } else if (conversion == "2") {
-                PrintMeterToInchList(start, end);
+            //if (conversion == "1") {
+            //    PrintYardToMeterList(number);
+            //} else if (conversion == "2") {
+            //    PrintMeterToYardList(number);
+            //}
+
+            static void PrintYardToMeterList(int number) {
+                    double meter = YardConverter.ToMeter(number);
+                    Console.WriteLine($"{number}yard = {meter:0.0000}m");
             }
 
-            static void PrintInchToMeterList(int start, int end) {
-                for (int inch = start; inch <= end; inch++) {
-                    double meter = InchConverter.ToMeter(inch);
-                    Console.WriteLine($"{inch}inch = {meter:0.0000}m");
-                }
-            }
-
-            static void PrintMeterToInchList(int start, int end) {
-                for (int meter = start; meter <= end; meter++) {
-                    double inch = InchConverter.ToMeter(meter);
-                    Console.WriteLine($"{meter}m = {inch:0.0000}inch");
-                }
+            static void PrintMeterToYardList(int number) {
+                    double inch = YardConverter.FromMeter(number);
+                    Console.WriteLine($"{number}m = {inch:0.0000}inch");
             }
         }
     }

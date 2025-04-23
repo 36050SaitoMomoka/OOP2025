@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DistanceConverter {
+namespace Exercise02{
     public static class InchConverter {
 
         //定数
