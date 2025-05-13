@@ -13,6 +13,11 @@ namespace Exercise01 {
         public string ArtistName { get; set; }
         public int Length { get; set; }
 
-        //2.1.2
+        //2.1.2 【コンストラクタ】
+        public Song(string Title, string ArtistName, int Length) {
+            this.Title = Title;
+            this.ArtistName = ArtistName;
+            this.Length = Length;
+        }
     }
 }
