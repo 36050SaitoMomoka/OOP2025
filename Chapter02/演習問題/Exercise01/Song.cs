@@ -9,9 +9,9 @@ namespace Exercise01 {
 
     //2.1.1 【クラスを定義】
     public class Song {
-        public string Title { get; set; }
-        public string ArtistName { get; set; }
-        public int Length { get; set; }
+        public string Title { get; private set; } = string.Empty;
+        public string ArtistName { get; private set; } = string.Empty;
+        public int Length { get; private set; }
 
         //2.1.2 【コンストラクタ】
         public Song(string Title, string ArtistName, int Length) {
