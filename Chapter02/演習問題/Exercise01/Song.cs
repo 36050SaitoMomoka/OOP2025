@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exercise01 {
+
+    //2.1.1 【クラスを定義】
+    public class Song {
+        public string Title { get; set; }
+        public string ArtistName { get; set; }
+        public int Length { get; set; }
+
+        //2.1.2
+    }
+}
