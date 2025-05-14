@@ -1,20 +1,48 @@
 ﻿namespace Exercise01 {
     public class Program {
         static void Main(string[] args) {
-            //2.1.3 【インスタンス複数作成・配列songsに格納】
-            var songs = new Song[] {
-            new Song("Let it be", "The Beatles", 243),
-            new Song("Bridge Over Troubled Water", "Simon & Garfunkel", 293),
-            new Song("Close To You", "Carpenters", 276),
-            new Song("Honesty", "Billy Joel", 231),
-            new Song("I Will Always Love You", "Whitney Houston", 273),
-            };
+            //歌データを入れるリストオブジェクトを生成
+            var songs = new List<Song>();
 
+            //"***** 曲の登録 *****"を出力
+            Console.WriteLine("***** 曲の登録 *****");
+
+            //何件入力があるかわからないので無限ループ
+            while (true) {
+                //"曲名:"を出力
+                Console.Write("曲名:");
+                //入力された曲名を取得
+                string? title = Console.ReadLine();
+                if (title.Equals("end", StringComparison.OrdinalIgnoreCase)) break;
+
+                //"アーティスト名:"を出力
+                Console.Write("アーティスト名:");
+                //入力されたアーティスト名を取得
+                string? artistname = Console.ReadLine();
+                if (artistname.Equals("end", StringComparison.OrdinalIgnoreCase)) break;
+
+                //"演奏時間（秒）:"を出力
+                Console.Write("演奏時間（秒）:");
+                //入力された演奏時間を取得
+                int length = int.Parse(Console.ReadLine());
+
+                //Songインスタンスを生成
+                //Song song = new Song(title, artistname, length);
+                Song song = new Song() { 
+                Title = title,
+                ArtistName = artistname,
+                Length = length
+            };
+                //歌データを入れるリストオブジェクトへ登録
+                songs.Add(song);
+
+                Console.WriteLine();    //改行
+            }
             printSongs(songs);
         }
 
         //2.1.4
-        public static void printSongs(Song[] songs) {
+        public static void printSongs(List<Song> songs) {
 #if false
             foreach (var song in songs) {
                 var minutes = song.Length / 60;
@@ -28,12 +56,12 @@
                 Console.WriteLine($"{song.Title},{song.ArtistName}{timespan.Minutes}:{timespan.Seconds:00}");
             }
 
-/*          //または、以下でも可
- *          foreach (var song in songs) {
- *              Console.WriteLine(@"{0},{1} {2:m\:ss}",
- *                  song.Title, song.ArtistName, TimeSpan.FromSeconds(song.Length));
- *          }
- */          
+            /*          //または、以下でも可
+             *          foreach (var song in songs) {
+             *              Console.WriteLine(@"{0},{1} {2:m\:ss}",
+             *                  song.Title, song.ArtistName, TimeSpan.FromSeconds(song.Length));
+             *          }
+             */
 
 #endif
             Console.WriteLine();
