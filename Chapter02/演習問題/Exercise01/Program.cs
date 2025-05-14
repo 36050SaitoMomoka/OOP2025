@@ -42,7 +42,7 @@
         }
 
         //2.1.4
-        public static void printSongs(List<Song> songs) {
+        public static void printSongs(IEnumerable<Song> songs) {
 #if false
             foreach (var song in songs) {
                 var minutes = song.Length / 60;
