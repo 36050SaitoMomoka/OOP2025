@@ -32,7 +32,6 @@ namespace Exercise02 {
                 var name = Console.ReadLine();
                 int index = cities.FindIndex(s => s == name);
                 if (string.IsNullOrEmpty(name)) {
-                    index = -1;
                     break;
                 }
                 Console.WriteLine(index);
