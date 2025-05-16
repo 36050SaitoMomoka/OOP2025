@@ -39,7 +39,8 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> cities) {
-
+            int count = cities.Count(cities => cities.Contains("o"));
+            Console.WriteLine(count);
         }
 
         private static void Exercise2_3(List<string> cities) {
