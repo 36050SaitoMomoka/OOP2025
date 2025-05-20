@@ -39,16 +39,23 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(List<string> cities) {
-            int count = cities.Count(cities => cities.Contains("o"));
+            var count = cities.Count(s => s.Contains("o"));
             Console.WriteLine(count);
         }
 
         private static void Exercise2_3(List<string> cities) {
-
+            var extraction = cities.Where(s => s.Contains("o")).ToArray();
+            foreach (var s in extraction) {
+                Console.WriteLine(s);
+            }
         }
 
         private static void Exercise2_4(List<string> cities) {
-
+            var obj = cities.Where(s => s.StartsWith("B"))
+                            .Select(s => new { s, s.Length });
+            foreach (var data in obj) {
+                Console.WriteLine(data.s + ":" + data.Length + "文字" );
+            }
         }
     }
 }
