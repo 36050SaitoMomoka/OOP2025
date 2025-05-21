@@ -42,7 +42,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(List<int> numbers) {
-            numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine);
+            numbers.Select(n => n * 2).ToList().ForEach(Console.WriteLine); //n * 2.0←◎
             //IEnumerable<int> query = numbers.Select(n => n * 2).ToList();
             //foreach (var n in query) {
             //    Console.WriteLine(n);
