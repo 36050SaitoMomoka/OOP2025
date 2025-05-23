@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Globalization;
 
 namespace Exercise02 {
     internal class Program {
@@ -14,7 +15,8 @@ namespace Exercise02 {
 
         private static void Exercise1() {
             Console.Write("数値を入力してください。：");
-            if (int.TryParse(Console.ReadLine(), out var num)) {
+            var line = Console.ReadLine();  //修正　line使用
+            if (int.TryParse(line, out var num)) {
                 if (num < 0) {
                     Console.WriteLine(num);
                 } else if (num < 100) {
@@ -29,9 +31,27 @@ namespace Exercise02 {
             }
         }
 
-
         private static void Exercise2() {
-
+            Console.Write("数値を入力してください。：");
+            var line = Console.ReadLine();
+            if (int.TryParse(line, out var num)) {
+                switch (num){
+                    case < 0:
+                        Console.WriteLine();
+                        break;
+                    case < 100:
+                        Console.WriteLine(num * 2);
+                        break;
+                    case < 500:
+                        Console.WriteLine(num * 3);
+                        break;
+                    default:
+                        Console.WriteLine(num);
+                        break;
+                }
+            } else {
+                Console.WriteLine("入力値に誤りがあります。");
+            }
         }
 
         private static void Exercise3() {
