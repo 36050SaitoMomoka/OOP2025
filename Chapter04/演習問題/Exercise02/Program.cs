@@ -15,7 +15,7 @@ namespace Exercise02 {
 
         private static void Exercise1() {
             Console.Write("数値を入力してください。：");
-            var line = Console.ReadLine();  //修正　line使用
+            var line = Console.ReadLine();
             if (int.TryParse(line, out var num)) {
                 if (num < 0) {
                     Console.WriteLine(num);
@@ -55,7 +55,19 @@ namespace Exercise02 {
         }
 
         private static void Exercise3() {
-
+            Console.Write("数値を入力してください。：");
+            var line = Console.ReadLine();
+            if (int.TryParse(line, out var num)) {
+                var text = num switch {
+                    < 0 => num,
+                    < 100 => num * 2,
+                    < 500 => num * 3,
+                    _ => num
+                };
+                Console.WriteLine(text);
+            } else {
+                Console.WriteLine("入力値に誤りがあります。");
+            }
         }
     }
 }
