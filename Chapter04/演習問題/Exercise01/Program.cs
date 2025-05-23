@@ -15,7 +15,7 @@ namespace Exercise01 {
         }
 
         private static void Exercise1(List<string> langs) {
-            //foreach文
+            //foreach文  ※Exercise2 LINQを使う
             langs.Where(l => l.Contains("S")).ToList().ForEach(Console.WriteLine);
             //for文
             for (int i = 0; i < langs.Count; i++) {
@@ -34,6 +34,24 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(List<string> langs) {
+            //foreach文  ※Exercise1 LINQを使わない
+            foreach (var lang in langs) {
+                if (lang.Contains("S")) {
+                    Console.WriteLine(lang);
+                }
+            }
+            //for文
+            langs = langs.Where(l => l.Contains("S")).ToList();
+            for (int i = 0; i < langs.Count; i++) {
+                Console.WriteLine(langs[i]);
+            }
+            //while文
+            langs = langs.Where(l => l.Contains("S")).ToList();
+            int j = 0;
+            while (j < langs.Count) {
+                Console.WriteLine(langs[j]);
+                j++;
+            }
         }
 
         private static void Exercise3(List<string> langs) {
