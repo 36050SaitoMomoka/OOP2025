@@ -29,9 +29,6 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(int[] numbers) {  //P169～
-
-
-
             var index = numbers.Skip(numbers.Length - 2).Take(2);
             foreach (var num in index) {
                 Console.WriteLine(num);
@@ -39,7 +36,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise3(int[] numbers) {  //P172～
-
+            var strings = numbers.Select(n => n.ToString("000")).ToArray();
+            foreach (var str in strings) {
+                Console.WriteLine(str);
+            }
         }
 
         private static void Exercise4(int[] numbers) {
