@@ -38,7 +38,6 @@ namespace Exercise01 {
                 //    Console.WriteLine(n);
                 }
             }
-        }
 
         private static void Exercise3(int[] numbers) {  //P172～
             var strings = numbers.Select(n => n.ToString("000")).ToArray();
@@ -55,7 +54,8 @@ namespace Exercise01 {
         }
 
         private static void Exercise5(int[] numbers) {
-
+            var result = numbers.Distinct().Count(n => n > 10);
+            Console.WriteLine(result);
         }
     }
 }
