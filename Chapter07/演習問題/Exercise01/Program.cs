@@ -29,6 +29,13 @@ namespace Exercise01 {
         }
 
         private static void Exercise2(int[] numbers) {  //P169～
+
+
+
+            var index = numbers.Skip(numbers.Length - 2).Take(2);
+            foreach (var num in index) {
+                Console.WriteLine(num);
+            }
         }
 
         private static void Exercise3(int[] numbers) {  //P172～
