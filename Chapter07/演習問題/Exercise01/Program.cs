@@ -32,6 +32,11 @@ namespace Exercise01 {
             var index = numbers.Skip(numbers.Length - 2).Take(2);
             foreach (var num in index) {
                 Console.WriteLine(num);
+
+                ////解答
+                //foreach (var n in numbers.TakeLast(2)) {
+                //    Console.WriteLine(n);
+                }
             }
         }
 
@@ -43,7 +48,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise4(int[] numbers) {
-
+            var sortedList = numbers.OrderBy(n => n).Take(3);
+            foreach (var num in sortedList) {
+                Console.WriteLine(num);
+            }
         }
 
         private static void Exercise5(int[] numbers) {
