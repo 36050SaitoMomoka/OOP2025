@@ -50,10 +50,21 @@ namespace Exercise02 {
 
         private static void Exercise2(List<Book> books) {
             Console.WriteLine(books.Count(b => b.Title.Contains("C#")));
+
+            //解答
+            var count = books
+                .Count(b => b.Title.Contains("C#"));
+            Console.WriteLine(count);
         }
 
         private static void Exercise3(List<Book> books) {
             Console.WriteLine(books.Where(b => b.Title.Contains("C#")).Average(b => b.Pages) + "ページ");
+
+            //解答
+            var average = books
+                .Where(b => b.Title.Contains("C#"))
+                .Average(b => b.Pages);
+            Console.WriteLine(average);
         }
 
         private static void Exercise4(List<Book> books) {
@@ -71,8 +82,8 @@ namespace Exercise02 {
         }
 
         private static void Exercise7(List<Book> books) {
-
-
+            books.Where(b => b.Title.Contains("C#") && b.Pages <= 500).ToList()
+                .ForEach(x => Console.WriteLine(x.Title));
         }
     }
 }
