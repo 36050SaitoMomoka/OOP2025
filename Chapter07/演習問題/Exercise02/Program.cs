@@ -53,8 +53,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise3(List<Book> books) {
-            var avg = books.Where(b => b.Title.Contains("C#")).Average(b => b.Pages);
-            Console.WriteLine($"{avg}ページ");
+            Console.WriteLine(books.Where(b => b.Title.Contains("C#")).Average(b => b.Pages) + "ページ");
         }
 
         private static void Exercise4(List<Book> books) {
@@ -63,8 +62,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise5(List<Book> books) {
-
-
+            Console.WriteLine(books.Where(b => b.Price < 4000).Max(b => b.Pages) + "ページ");
         }
 
         private static void Exercise6(List<Book> books) {
