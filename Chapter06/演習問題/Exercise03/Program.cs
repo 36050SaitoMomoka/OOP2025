@@ -26,7 +26,7 @@ namespace Exercise03 {
         }
 
         private static void Exercise2(string text) {
-
+            Console.WriteLine(text.Replace("big", "small"));
 
         }
 
