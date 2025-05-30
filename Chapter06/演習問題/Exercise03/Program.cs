@@ -40,8 +40,10 @@ namespace Exercise03 {
         }
 
         private static void Exercise5(string text) {
-
-
+            text.Split([' '], StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => x.Length <= 4)
+                .ToList()
+                .ForEach(Console.WriteLine);
         }
     }
 }
