@@ -16,24 +16,32 @@ namespace Exercise02 {
             #region
             Console.WriteLine("7.2.1");
             Exercise1(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.2");
             Exercise2(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.3");
             Exercise3(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.4");
             Exercise4(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.5");
             Exercise5(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.6");
             Exercise6(books);
+            Console.WriteLine("");
 
             Console.WriteLine("7.2.7");
             Exercise7(books);
+            Console.WriteLine("");
+
         }
         #endregion
 
@@ -70,20 +78,48 @@ namespace Exercise02 {
         private static void Exercise4(List<Book> books) {
             var title = books.FirstOrDefault(b => b.Price >= 4000);
             Console.WriteLine(title?.Title);
+
+            //解答
+            var book = books
+                .FirstOrDefault(b => b.Price >= 4000);
+            if(book is not null) {
+                Console.WriteLine(book.Title);
+            }
         }
 
         private static void Exercise5(List<Book> books) {
             Console.WriteLine(books.Where(b => b.Price < 4000).Max(b => b.Pages) + "ページ");
+
+            //解答
+            var pages = books
+                .Where(b => b.Price < 4000)
+                .Max(b => b.Pages);
+            Console.WriteLine(pages);
         }
 
         private static void Exercise6(List<Book> books) {
             books.Where(b => b.Pages >= 400).OrderByDescending(b => b.Price).ToList()
                 .ForEach(x => Console.WriteLine($"{x.Title}:{x.Price}円"));
+
+            //解答
+            var selected = books
+                .Where(b => b.Pages >= 400)
+                .OrderByDescending(b => b.Price);
+            foreach (var book in selected) {
+                Console.WriteLine("{0}{1}", book.Title, book.Price);
+            }
         }
 
         private static void Exercise7(List<Book> books) {
-            books.Where(b => b.Title.Contains("C#") && b.Pages <= 500).ToList()
-                .ForEach(x => Console.WriteLine(x.Title));
+            books.Where(b => b.Title.Contains("C#") && b.Pages <= 500)
+                .Select(b=>b.Title).ToList()
+                .ForEach(Console.WriteLine);
+
+            //解答
+            var selected = books.Where(b => b.Title.Contains("C#") && b.Pages <= 500).Select(b => b.Title);
+            foreach (var title in selected) {
+                Console.WriteLine(title);
+            }
         }
     }
 }
