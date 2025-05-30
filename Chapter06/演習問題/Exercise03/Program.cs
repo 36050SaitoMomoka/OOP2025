@@ -27,7 +27,6 @@ namespace Exercise03 {
 
         private static void Exercise2(string text) {
             Console.WriteLine(text.Replace("big", "small"));
-
         }
 
         private static void Exercise3(string text) {
@@ -36,9 +35,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise4(string text) {
-
-
-
+            var words = text.Split([' '], StringSplitOptions.RemoveEmptyEntries);
+            Console.WriteLine("単語数：" + words.Count());
         }
 
         private static void Exercise5(string text) {
