@@ -30,6 +30,7 @@ namespace Exercise03 {
         }
 
         private static void Exercise3(string text) {
+            var str = text.Split([' '], StringSplitOptions.RemoveEmptyEntries);
 
 
         }
@@ -37,6 +38,10 @@ namespace Exercise03 {
         private static void Exercise4(string text) {
             var words = text.Split([' '], StringSplitOptions.RemoveEmptyEntries);
             Console.WriteLine("単語数：" + words.Count());
+
+            //解答
+            var count = text.Split(' ').Length;
+            Console.WriteLine("単語数：{0}", count);
         }
 
         private static void Exercise5(string text) {
