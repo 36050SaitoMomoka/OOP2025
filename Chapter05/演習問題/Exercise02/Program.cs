@@ -1,4 +1,5 @@
 ﻿using Exercise01;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Exercise02 {
     public class Program {
@@ -43,10 +44,13 @@ namespace Exercise02 {
             return null;
         }
 
-
         //5.2.4
         private static void Exercise4(YearMonth[] ymCollection) {
-
+            if (FindFirst21C(ymCollection) is null) {
+                Console.WriteLine("21世紀のデータはありません");
+            } else {
+                Console.WriteLine(FindFirst21C(ymCollection));
+            }
         }
 
         //5.2.5
