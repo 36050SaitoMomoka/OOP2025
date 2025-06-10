@@ -16,11 +16,8 @@ namespace Exercise02 {
             Console.WriteLine("5.2.2");
             Exercise2(ymCollection);
 
-            Console.WriteLine("5.2.3");
-
             Console.WriteLine("5.2.4");
             Exercise4(ymCollection);
-
 
             Console.WriteLine("5.2.5");
             Exercise5(ymCollection);
@@ -44,6 +41,13 @@ namespace Exercise02 {
             return null;
         }
 
+        //解答
+        //foreach(var ym in ymCollection){
+        //    if(ym.Is21Century)
+        //       return ym;
+        //}
+        //return null;
+
         //5.2.4
         private static void Exercise4(YearMonth[] ymCollection) {
             if (FindFirst21C(ymCollection) is null) {
@@ -51,12 +55,25 @@ namespace Exercise02 {
             } else {
                 Console.WriteLine(FindFirst21C(ymCollection));
             }
+
+            //null合体演算子
+            var message = FindFirst21C(ymCollection)?.ToString() ?? "21世紀のデータではありません";
+            Console.WriteLine(message);
+            
+            //Console.WriteLine(FindFirst21C(ymCollection)?.ToString() ?? "21世紀のデータではありません");
         }
+
+        //解答
+        //var ym = FindFirst21C(ymCollection);
+        //    if(ym is null) {
+        //        Console.WriteLine("21世紀のデータはありません");
+        //    } else {
+        //        Console.WriteLine(ym);
+        //    }
 
         //5.2.5
         private static void Exercise5(YearMonth[] ymCollection) {
-            //AddOneMonth()
-            var array = ymCollection.Select(x => x.AddOneMonth());
+            var array = ymCollection.Select(x => x.AddOneMonth()).ToArray();
             foreach (var item in array) {
                 Console.WriteLine(item);
             }
