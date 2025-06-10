@@ -11,8 +11,8 @@ namespace Exercise01 {
         public int Month { get; init; }
 
         public YearMonth(int year, int month) {
-            Year = Year;
-            Month = Month;
+            Year = year;
+            Month = month;
         }
 
         //5.1.2
