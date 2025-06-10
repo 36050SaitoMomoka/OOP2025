@@ -27,8 +27,9 @@ namespace Exercise01 {
             } else {
                 return new YearMonth(Year + 1, 1);  //Monthが12月
             }
-
-
         }
+
+        //5.1.4
+        public override string ToString() => $"{Year}年{Month}月";
     }
 }
