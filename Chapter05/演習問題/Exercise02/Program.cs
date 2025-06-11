@@ -56,7 +56,7 @@ namespace Exercise02 {
                 Console.WriteLine(FindFirst21C(ymCollection));
             }
 
-            //null合体演算子
+            //null合体演算子、null条件演算子
             var message = FindFirst21C(ymCollection)?.ToString() ?? "21世紀のデータではありません";
             Console.WriteLine(message);
             
