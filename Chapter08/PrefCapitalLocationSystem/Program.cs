@@ -4,6 +4,13 @@ namespace PrefCapitalLocationSystem {
     internal class Program {
         static private Dictionary<string, string> prefOfficeDict = new Dictionary<string, string>();
 
+        //列挙型の定義
+        public enum SelectMenu {
+            Alldisp = 1,    //デフォルトは０
+            Search = 2,     //　　　　　　１
+            Exit = 9        //　　　　　　２
+        }
+
         static void Main(string[] args) {
             String? pref, prefCaptalLocation;
 
@@ -59,32 +66,27 @@ namespace PrefCapitalLocationSystem {
             Boolean endFlag = false;    //終了フラグ（無限ループを抜け出す用）
             while (!endFlag) {
                 switch (menuDisp()) {
-                    case "1": //一覧出力処理
-                    case "１":
+                    case SelectMenu.Alldisp:    //一覧出力処理
                         allDisp();
                         break;
-
-                    case "2"://検索処理
-                    case "２":
+                    case SelectMenu.Search:     //検索処理
                         searchPrefCaptalLocation();
                         break;
-
-                    case "9"://無限ループを抜ける
-                    case "９":
-                        endFlag = true;     //
+                    case SelectMenu.Exit:       //無限ループを抜ける
+                        endFlag = true;
                         break;
                 }
             }
         }
 
         //メニュー表示
-        private static string? menuDisp() {
+        private static SelectMenu menuDisp() {
             Console.WriteLine("\n**** メニュー ****");
             Console.WriteLine("1：一覧表示");
             Console.WriteLine("2：検索");
             Console.WriteLine("9：終了");
             Console.Write(">");
-            var menuSelect = Console.ReadLine()?.ToLower();
+            var menuSelect = (SelectMenu)int.Parse(Console.ReadLine());
             //Console.WriteLine($"入力値: {menuSelect}");      //確認用
             return menuSelect;
         }
