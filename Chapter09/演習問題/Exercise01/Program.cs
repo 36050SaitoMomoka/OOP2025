@@ -23,6 +23,10 @@ namespace Exercise01 {
             //2024年03月09日 19時03分09秒
             //DateTime.ToStringを使った例
             Console.WriteLine(dateTime.ToString("yyyy年MM月dd日 HH時mm分ss秒"));
+
+            //解答
+            var str = dateTime.ToString($"{dateTime:yyyy年MM月dd日 HH時mm分ss秒}");
+            Console.WriteLine(str);
         }
 
         private static void DisplayDatePattern3(DateTime dateTime) {
@@ -31,6 +35,17 @@ namespace Exercise01 {
 
             var dayOfWeek = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
             Console.WriteLine(string.Format(culture, "{0:gg y年 MM月 dd日}（{1}）", dateTime, dayOfWeek));
+
+            //解答
+            var datestr = dateTime.ToString("ggyy", culture);
+            var dayofWeek = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
+
+            var str = string.Format($"{datestr}年{dateTime.Month,2}月{dateTime.Day,2}日({dayofWeek})");
+            Console.WriteLine(str);
+
+            //和暦2桁表示（ゼロサプレスあり）
+            var cul = dateTime.ToString("gg", culture);
+            var year = int.Parse(dateTime.ToString("yy", culture));
         }
     }
 }
