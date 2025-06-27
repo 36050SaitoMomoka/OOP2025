@@ -1,13 +1,16 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Exercise03 {
     internal class Program {
         static void Main(string[] args) {
-            var tw = new TimeWatch();
+            //var tw = new TimeWatch();
+            var tw = new Stopwatch();
             tw.Start();
             // スリープする
-            Thread.Sleep(1000);
-            TimeSpan duration = tw.Stop();
+            Thread.Sleep(2000);
+            tw.Stop();
+            TimeSpan duration = tw.Elapsed;
             Console.WriteLine("処理時間は{0}ミリ秒でした", duration.TotalMilliseconds);
 
         }
@@ -15,7 +18,7 @@ namespace Exercise03 {
 
     class TimeWatch {
         private DateTime _time;
-        
+
         public void Start() {
             //現在の時間を_timeに設定
             _time = DateTime.Now;
