@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Data;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
@@ -133,7 +134,14 @@ namespace CarReportSystem {
 
         //削除ボタンのイベントハンドラ
         private void btRecordDelete_Click(object sender, EventArgs e) {
+            //カーレポート管理用リストから該当するデータを削除する
+            var index = dgvRecord.CurrentRow.Index;
+            listCarReports.RemoveAt(index);
+            InputItemsAllClear();
+        }
 
+        private void Form1_Load(object sender, EventArgs e) {
+            InputItemsAllClear();
         }
     }
 }
