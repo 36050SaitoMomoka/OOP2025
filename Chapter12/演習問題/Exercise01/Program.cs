@@ -30,6 +30,11 @@ namespace Exercise01 {
                 },
             ];
             Serialize("employees.json", employees);
+
+            //問題12.1.3
+            var empdata = Deserialize_f("employees.json");
+            foreach (var empd in empdata)
+                Console.WriteLine(empd);
         }
 
         //問題12.1.1
@@ -44,8 +49,8 @@ namespace Exercise01 {
         }
 
         //問題12.1.1
-        static Employee? Deserialize(string jsonString) {
-            var employee = JsonSerializer.Deserialize<Employee>(jsonString);
+        static Employee? Deserialize(string jsonString) {   //(string text)のままでOK
+            var employee = JsonSerializer.Deserialize<Employee>(jsonString);    //(jsonString)→(text)
             return employee;
         }
 
@@ -58,6 +63,15 @@ namespace Exercise01 {
             };
             string jsonString = JsonSerializer.Serialize(employees, options);
             File.WriteAllText(filePath, jsonString);
+            Console.WriteLine(jsonString);
+        }
+
+        //問題12.1.3
+        //12.1.2で作成したファイルを読み込み逆シリアル化
+        static Employee[] Deserialize_f(string filePath) {
+            var text = File.ReadAllText(filePath);
+            var empd = JsonSerializer.Deserialize<Employee[]>(text);
+            return empd;
         }
 
         public record Employee {
