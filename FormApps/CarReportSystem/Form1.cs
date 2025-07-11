@@ -2,11 +2,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         //カーレポート管理用
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //設定クラスのインスタンスを生成
+        Settings settings = new Settings();
 
         public Form1() {
             InitializeComponent();
@@ -169,9 +174,41 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            inputItemsAllClear();
+
             //交互に色を設定（データグリッドビュー）
             dgvRecord.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
-            inputItemsAllClear();
+
+            //設定ファイルを読み込み背景色を設定する（逆シリアル化）
+
+            //using (var reader = XmlReader.Create("setting.xml")) {
+            //    var serializer = new XmlSerializer(typeof(Settings));
+            //    var settings = serializer.Deserialize(reader) as Settings;
+
+            //    BackColor = Color.FromArgb(settings.MainFormBackColor);
+            //}
+
+            //解答
+            if (File.Exists("setting.xml")) {   //ファイルが存在してるか
+                try {
+                    using (var reader = XmlReader.Create("setting.xml")) {
+                        var serializer = new XmlSerializer(typeof(Settings));
+                        settings = serializer.Deserialize(reader) as Settings;
+                        //var set = serializer.Deserialize(reader) as Settings;
+                        //背景色設定
+                        //BackColor = Color.FromArgb(set.MainFormBackColor);
+                        //設定クラスのインスタンスにも現在の設定色を設定
+                        //settings.MainFormBackColor = BackColor.ToArgb();
+                        //settings = set;
+                    }
+                }
+                catch (Exception ex) {
+                    tsslbMessage.Text = "ファイル読み込みエラー";
+                    MessageBox.Show(ex.Message);    //より具体的なエラーを出力
+                }
+            } else {
+                tsslbMessage.Text = "設定ファイルがありません。";
+            }
         }
 
         private void tsmiExit_Click(object sender, EventArgs e) {
@@ -186,6 +223,8 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColor.Color;
+                //設定ファイルへ保存
+                settings.MainFormBackColor = cdColor.Color.ToArgb();    //背景色を設定インスタンスへ設定
             }
         }
 
@@ -244,6 +283,29 @@ namespace CarReportSystem {
 
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
             reportOpenFile();
+        }
+
+        //フォームが閉じたら呼ばれる
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルへ色情報を保存する処理（シリアル化）
+            //P284意向を参考にする（ファイル名：setting.xml）
+
+            //using (var writer = XmlWriter.Create("setting.xml")) {
+            //    var serializer = new XmlSerializer(settings.GetType());
+            //    serializer.Serialize(writer, settings);
+            //}
+
+            //解答
+            try {
+                using (var writer = XmlWriter.Create("setting.xml")) {
+                    var serializer = new XmlSerializer(settings.GetType());
+                    serializer.Serialize(writer, settings);
+                }
+            }
+            catch (Exception ex) {
+                tsslbMessage.Text = "ファイル書き出しエラー";
+                MessageBox.Show(ex.Message);//より具体的なエラーを出力
+            }
         }
     }
 }
