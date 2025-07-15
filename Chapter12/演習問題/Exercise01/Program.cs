@@ -61,6 +61,8 @@ namespace Exercise01 {
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
             };
+            //byte[] utf8Bytes = JsonSerializer.SerializeToUtf8Bytes(employees, options);
+            //File.WriteAllBytes(filePath, utf8Bytes);
             string jsonString = JsonSerializer.Serialize(employees, options);
             File.WriteAllText(filePath, jsonString);
             Console.WriteLine(jsonString);
