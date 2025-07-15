@@ -71,9 +71,14 @@ namespace Exercise01 {
         //問題12.1.3
         //12.1.2で作成したファイルを読み込み逆シリアル化
         static Employee[] Deserialize_f(string filePath) {
+            //追加
+            var options = new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true,
+            };
             var text = File.ReadAllText(filePath);
-            var empd = JsonSerializer.Deserialize<Employee[]>(text);
-            return empd;
+            var empd = JsonSerializer.Deserialize<Employee[]>(text, options);
+            return empd ?? [];  //修正
         }
 
         public record Employee {
