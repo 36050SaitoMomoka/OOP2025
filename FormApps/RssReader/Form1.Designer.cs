@@ -26,24 +26,26 @@
             tbUrl = new TextBox();
             btRssGet = new Button();
             lbTitles = new ListBox();
-            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
+            wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
+            btGoBack = new Button();
+            btGoForward = new Button();
+            ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
             // 
             // tbUrl
             // 
-            tbUrl.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbUrl.Location = new Point(12, 12);
+            tbUrl.Font = new Font("メイリオ", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            tbUrl.Location = new Point(108, 12);
             tbUrl.Name = "tbUrl";
-            tbUrl.Size = new Size(444, 33);
+            tbUrl.Size = new Size(348, 36);
             tbUrl.TabIndex = 0;
             // 
             // btRssGet
             // 
             btRssGet.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btRssGet.Location = new Point(475, 12);
+            btRssGet.Location = new Point(462, 12);
             btRssGet.Name = "btRssGet";
-            btRssGet.Size = new Size(76, 33);
+            btRssGet.Size = new Size(91, 33);
             btRssGet.TabIndex = 1;
             btRssGet.Text = "取得";
             btRssGet.UseVisualStyleBackColor = true;
@@ -61,30 +63,54 @@
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             // 
-            // webView21
+            // wvRssLink
             // 
-            webView21.AllowExternalDrop = true;
-            webView21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            webView21.CreationProperties = null;
-            webView21.DefaultBackgroundColor = Color.White;
-            webView21.Location = new Point(12, 284);
-            webView21.Name = "webView21";
-            webView21.Size = new Size(539, 303);
-            webView21.TabIndex = 3;
-            webView21.ZoomFactor = 1D;
+            wvRssLink.AllowExternalDrop = true;
+            wvRssLink.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            wvRssLink.CreationProperties = null;
+            wvRssLink.DefaultBackgroundColor = Color.White;
+            wvRssLink.Location = new Point(12, 284);
+            wvRssLink.Name = "wvRssLink";
+            wvRssLink.Size = new Size(539, 303);
+            wvRssLink.TabIndex = 3;
+            wvRssLink.ZoomFactor = 1D;
+            // 
+            // btGoBack
+            // 
+            btGoBack.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btGoBack.Location = new Point(12, 12);
+            btGoBack.Name = "btGoBack";
+            btGoBack.Size = new Size(42, 33);
+            btGoBack.TabIndex = 4;
+            btGoBack.Text = "戻る";
+            btGoBack.UseVisualStyleBackColor = true;
+            btGoBack.Click += button1_Click;
+            // 
+            // btGoForward
+            // 
+            btGoForward.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btGoForward.Location = new Point(60, 11);
+            btGoForward.Name = "btGoForward";
+            btGoForward.Size = new Size(42, 33);
+            btGoForward.TabIndex = 4;
+            btGoForward.Text = "進む";
+            btGoForward.UseVisualStyleBackColor = true;
+            btGoForward.Click += button2_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 599);
-            Controls.Add(webView21);
+            Controls.Add(btGoForward);
+            Controls.Add(btGoBack);
+            Controls.Add(wvRssLink);
             Controls.Add(lbTitles);
             Controls.Add(btRssGet);
             Controls.Add(tbUrl);
             Name = "Form1";
             Text = "RSSリーダー";
-            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
+            ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,6 +120,8 @@
         private TextBox tbUrl;
         private Button btRssGet;
         private ListBox lbTitles;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
+        private Button btGoBack;
+        private Button btGoForward;
     }
 }
