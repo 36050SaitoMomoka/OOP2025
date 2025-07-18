@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Serialization;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -26,7 +24,12 @@ namespace Exercise03 {
 
         static void ToXmlFile(Employee[] employees) {
             using (var writer = XmlWriter.Create("employees.xml")) {
+                //追加
+                XmlRootAttribute xRoot = new XmlRootAttribute {
+                    ElementName = "Employees",
+                };
                 var serializer = new XmlSerializer(employees.GetType());
+                //var serializer = new XmlSerializer(Typeof(employees[]));
                 serializer.Serialize(writer, employees);
             }
         }
