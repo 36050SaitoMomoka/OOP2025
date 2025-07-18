@@ -74,6 +74,7 @@
             wvRssLink.Size = new Size(539, 303);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
+            wvRssLink.NavigationCompleted += wvRssLink_NavigationCompleted;
             // 
             // btGoBack
             // 
@@ -110,6 +111,7 @@
             Controls.Add(tbUrl);
             Name = "Form1";
             Text = "RSSリーダー";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
             PerformLayout();

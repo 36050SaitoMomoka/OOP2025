@@ -53,6 +53,16 @@ namespace RssReader {
                 btGoForward.Enabled = false;    //マスク処理
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            btGoForward.Enabled = false;   //マスク処理
+            btGoBack.Enabled = false;
+        }
+
+        private void wvRssLink_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e) {
+            btGoForward.Enabled = true;
+            btGoBack.Enabled = true;
+        }
     }
 }
 
