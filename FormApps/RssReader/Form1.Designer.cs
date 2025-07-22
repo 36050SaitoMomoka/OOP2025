@@ -23,22 +23,14 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            tbUrl = new TextBox();
             btRssGet = new Button();
             lbTitles = new ListBox();
             wvRssLink = new Microsoft.Web.WebView2.WinForms.WebView2();
             btGoBack = new Button();
             btGoForward = new Button();
+            cbURL = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             SuspendLayout();
-            // 
-            // tbUrl
-            // 
-            tbUrl.Font = new Font("メイリオ", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            tbUrl.Location = new Point(108, 12);
-            tbUrl.Name = "tbUrl";
-            tbUrl.Size = new Size(348, 36);
-            tbUrl.TabIndex = 0;
             // 
             // btRssGet
             // 
@@ -74,7 +66,7 @@
             wvRssLink.Size = new Size(539, 303);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
-            wvRssLink.NavigationCompleted += wvRssLink_NavigationCompleted;
+            wvRssLink.SourceChanged += wvRssLink_SourceChanged;
             // 
             // btGoBack
             // 
@@ -85,7 +77,7 @@
             btGoBack.TabIndex = 4;
             btGoBack.Text = "戻る";
             btGoBack.UseVisualStyleBackColor = true;
-            btGoBack.Click += button1_Click;
+            btGoBack.Click += btGoBack_Click;
             // 
             // btGoForward
             // 
@@ -96,34 +88,41 @@
             btGoForward.TabIndex = 4;
             btGoForward.Text = "進む";
             btGoForward.UseVisualStyleBackColor = true;
-            btGoForward.Click += button2_Click;
+            btGoForward.Click += btGoForward_Click;
+            // 
+            // cbURL
+            // 
+            cbURL.Font = new Font("メイリオ", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            cbURL.FormattingEnabled = true;
+            cbURL.Location = new Point(108, 13);
+            cbURL.Name = "cbURL";
+            cbURL.Size = new Size(348, 32);
+            cbURL.TabIndex = 5;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(565, 599);
+            Controls.Add(cbURL);
             Controls.Add(btGoForward);
             Controls.Add(btGoBack);
             Controls.Add(wvRssLink);
             Controls.Add(lbTitles);
             Controls.Add(btRssGet);
-            Controls.Add(tbUrl);
             Name = "Form1";
             Text = "RSSリーダー";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)wvRssLink).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private TextBox tbUrl;
         private Button btRssGet;
         private ListBox lbTitles;
         private Microsoft.Web.WebView2.WinForms.WebView2 wvRssLink;
         private Button btGoBack;
         private Button btGoForward;
+        private ComboBox cbURL;
     }
 }
