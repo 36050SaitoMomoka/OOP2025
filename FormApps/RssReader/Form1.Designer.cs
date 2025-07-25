@@ -35,6 +35,7 @@
             btAdd = new Button();
             statusStrip1 = new StatusStrip();
             tsslMessage = new ToolStripStatusLabel();
+            btRemove = new Button();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -42,7 +43,7 @@
             // btRssGet
             // 
             btRssGet.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btRssGet.Location = new Point(577, 11);
+            btRssGet.Location = new Point(616, 11);
             btRssGet.Name = "btRssGet";
             btRssGet.Size = new Size(91, 33);
             btRssGet.TabIndex = 1;
@@ -58,7 +59,7 @@
             lbTitles.ItemHeight = 24;
             lbTitles.Location = new Point(12, 102);
             lbTitles.Name = "lbTitles";
-            lbTitles.Size = new Size(656, 196);
+            lbTitles.Size = new Size(693, 196);
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             // 
@@ -70,7 +71,7 @@
             wvRssLink.DefaultBackgroundColor = Color.White;
             wvRssLink.Location = new Point(12, 304);
             wvRssLink.Name = "wvRssLink";
-            wvRssLink.Size = new Size(656, 314);
+            wvRssLink.Size = new Size(693, 314);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
             wvRssLink.SourceChanged += wvRssLink_SourceChanged;
@@ -103,7 +104,7 @@
             cbURL.FormattingEnabled = true;
             cbURL.Location = new Point(223, 11);
             cbURL.Name = "cbURL";
-            cbURL.Size = new Size(348, 32);
+            cbURL.Size = new Size(387, 32);
             cbURL.TabIndex = 5;
             // 
             // label1
@@ -129,15 +130,15 @@
             tbAdd.Font = new Font("メイリオ", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
             tbAdd.Location = new Point(223, 55);
             tbAdd.Name = "tbAdd";
-            tbAdd.Size = new Size(348, 31);
+            tbAdd.Size = new Size(352, 31);
             tbAdd.TabIndex = 7;
             // 
             // btAdd
             // 
             btAdd.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btAdd.Location = new Point(577, 55);
+            btAdd.Location = new Point(581, 54);
             btAdd.Name = "btAdd";
-            btAdd.Size = new Size(91, 32);
+            btAdd.Size = new Size(60, 32);
             btAdd.TabIndex = 8;
             btAdd.Text = "登録";
             btAdd.UseVisualStyleBackColor = true;
@@ -148,20 +149,32 @@
             statusStrip1.Items.AddRange(new ToolStripItem[] { tsslMessage });
             statusStrip1.Location = new Point(0, 621);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(680, 22);
+            statusStrip1.Size = new Size(717, 22);
             statusStrip1.TabIndex = 9;
             statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tsslMessage
             // 
-            tsslMessage.Name = "toolStripStatusLabel1";
+            tsslMessage.Name = "tsslMessage";
             tsslMessage.Size = new Size(0, 17);
+            // 
+            // btRemove
+            // 
+            btRemove.Font = new Font("メイリオ", 9F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btRemove.Location = new Point(647, 55);
+            btRemove.Name = "btRemove";
+            btRemove.Size = new Size(60, 32);
+            btRemove.TabIndex = 10;
+            btRemove.Text = "削除";
+            btRemove.UseVisualStyleBackColor = true;
+            btRemove.Click += btRemove_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(680, 643);
+            ClientSize = new Size(717, 643);
+            Controls.Add(btRemove);
             Controls.Add(statusStrip1);
             Controls.Add(btAdd);
             Controls.Add(tbAdd);
@@ -196,5 +209,6 @@
         private Button btAdd;
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel tsslMessage;
+        private Button btRemove;
     }
 }

@@ -9,7 +9,7 @@ namespace RssReader {
     public partial class Form1 : Form {
 
         private List<ItemData> items;
-        Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
+        public static readonly Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
             {"主要","https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
             {"国内","https://news.yahoo.co.jp/rss/topics/domestic.xml" },
             {"国際", "https://news.yahoo.co.jp/rss/topics/world.xml"},
@@ -162,6 +162,18 @@ namespace RssReader {
                 //テキストボックスの表示　空白
                 tbAdd.Text = "";
             }
+        }
+
+        //お気に入り削除対応
+        private void btRemove_Click(object sender, EventArgs e) {
+            bool result = rssUrlDict.Remove(cbURL.Text);
+            cbURL.DataSource = rssUrlDict.Select(x => x.Key).ToList();
+            tsslMessage.Text = "削除しました。";
+
+            //コンボボックスの表示　空白
+            cbURL.SelectedIndex = -1;
+            //テキストボックスの表示　空白
+            tbAdd.Text = "";
         }
     }
 }
