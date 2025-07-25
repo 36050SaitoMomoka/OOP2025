@@ -1,5 +1,8 @@
 using System.Net;
 using System.Security.Cryptography;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
@@ -9,7 +12,7 @@ namespace RssReader {
     public partial class Form1 : Form {
 
         private List<ItemData> items;
-        public static readonly Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
+        public  Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
             {"主要","https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
             {"国内","https://news.yahoo.co.jp/rss/topics/domestic.xml" },
             {"国際", "https://news.yahoo.co.jp/rss/topics/world.xml"},
@@ -119,6 +122,9 @@ namespace RssReader {
         private void Form1_Load(object sender, EventArgs e) {
             GoForwardBtEnableSet();
 
+            //ファイル読み込み
+            rssUrlDict = Deserialize_f("favorite.json");
+
             //リストボックスの色設定用
             lbTitles.DrawMode = DrawMode.OwnerDrawFixed;
             lbTitles.DrawItem += lbTitles_DrawItem;
@@ -203,7 +209,39 @@ namespace RssReader {
             //選択枠の描画
             e.DrawFocusRectangle();
         }
+
+        //お気に入り保存
+        private void btSave_Click(object sender, EventArgs e) {
+            Serialize("favorite.json",rssUrlDict);
+            tsslMessage.Text = "保存しました。";
+        }
+
+        //シリアル化してファイルへ出力する
+        static void Serialize(string filePath, Dictionary<string,string> dictionary) {
+            var options = new JsonSerializerOptions {
+                WriteIndented = true,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+            };
+            string jsonString = JsonSerializer.Serialize(dictionary, options);
+            File.WriteAllText(filePath, jsonString);
+            Console.WriteLine(jsonString);
+        }
+
+        //作成したファイルを読み込み逆シリアル化
+        static Dictionary<string,string> Deserialize_f(string filePath) {
+            var options = new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true,
+            };
+
+            if (!File.Exists(filePath)) {
+                Console.WriteLine("ファイルが見つかりません：" + filePath);
+                return new Dictionary<string, string>();
+            }
+
+            var text = File.ReadAllText(filePath);
+            var empd = JsonSerializer.Deserialize<Dictionary<string,string>>(text, options);
+            return empd ?? [];
+        }
     }
 }
-
-//https://news.yahoo.co.jp/rss→yahoo RSSのリンク

@@ -36,6 +36,7 @@
             statusStrip1 = new StatusStrip();
             tsslMessage = new ToolStripStatusLabel();
             btRemove = new Button();
+            btSave = new Button();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -60,7 +61,7 @@
             lbTitles.ItemHeight = 24;
             lbTitles.Location = new Point(12, 102);
             lbTitles.Name = "lbTitles";
-            lbTitles.Size = new Size(693, 196);
+            lbTitles.Size = new Size(693, 244);
             lbTitles.TabIndex = 2;
             lbTitles.Click += lbTitles_Click;
             lbTitles.DrawItem += lbTitles_DrawItem;
@@ -73,7 +74,7 @@
             wvRssLink.DefaultBackgroundColor = Color.White;
             wvRssLink.Location = new Point(12, 304);
             wvRssLink.Name = "wvRssLink";
-            wvRssLink.Size = new Size(693, 314);
+            wvRssLink.Size = new Size(693, 336);
             wvRssLink.TabIndex = 3;
             wvRssLink.ZoomFactor = 1D;
             wvRssLink.SourceChanged += wvRssLink_SourceChanged;
@@ -149,7 +150,7 @@
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { tsslMessage });
-            statusStrip1.Location = new Point(0, 621);
+            statusStrip1.Location = new Point(0, 681);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(717, 22);
             statusStrip1.TabIndex = 9;
@@ -171,11 +172,23 @@
             btRemove.UseVisualStyleBackColor = true;
             btRemove.Click += btRemove_Click;
             // 
+            // btSave
+            // 
+            btSave.Font = new Font("メイリオ", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btSave.Location = new Point(593, 646);
+            btSave.Name = "btSave";
+            btSave.Size = new Size(112, 32);
+            btSave.TabIndex = 11;
+            btSave.Text = "保存";
+            btSave.UseVisualStyleBackColor = true;
+            btSave.Click += btSave_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(717, 643);
+            ClientSize = new Size(717, 703);
+            Controls.Add(btSave);
             Controls.Add(btRemove);
             Controls.Add(statusStrip1);
             Controls.Add(btAdd);
@@ -212,5 +225,6 @@
         private StatusStrip statusStrip1;
         private ToolStripStatusLabel tsslMessage;
         private Button btRemove;
+        private Button btSave;
     }
 }
