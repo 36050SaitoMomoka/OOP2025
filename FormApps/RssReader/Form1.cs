@@ -29,31 +29,29 @@ namespace RssReader {
             //解答
             using (var hc = new HttpClient()) {
                 //URLチェック
-                if (Uri.IsWellFormedUriString(cbURL.Text, UriKind.Absolute)) {
-                    try {
-                        string xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
-                        XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
-
-                        //using (var wc = new WebClient()) {
-                        //var url = wc.OpenRead(tbUrl.Text);
-                        //XDocument xdoc = XDocument.Load(url);
-
-                        //RSSを解析して必要な要素を取得
-                        items = xdoc.Root.Descendants("item")
-                            .Select(x =>
-                                new ItemData {
-                                    Title = (string?)x.Element("title"),
-                                    Link = (string?)x.Element("link"),
-                                }).ToList();
-
-                        //リストボックスへタイトルを表示
-                        lbTitles.Items.Clear();
-                        items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
-                    }
-                    catch (Exception) {
-                        tsslMessage.Text = "無効";
-                    }
+                string xml = getRssUrl(cbURL.Text);
+                if (!rssUrlDict.ContainsKey(cbURL.Text) && !Uri.IsWellFormedUriString(xml, UriKind.Absolute)) {
+                    tsslMessage.Text = "無効";
+                    return;
                 }
+                xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
+                XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
+
+                //using (var wc = new WebClient()) {
+                //var url = wc.OpenRead(tbUrl.Text);
+                //XDocument xdoc = XDocument.Load(url);
+
+                //RSSを解析して必要な要素を取得
+                items = xdoc.Root.Descendants("item")
+                    .Select(x =>
+                        new ItemData {
+                            Title = (string?)x.Element("title"),
+                            Link = (string?)x.Element("link"),
+                        }).ToList();
+
+                //リストボックスへタイトルを表示
+                lbTitles.Items.Clear();
+                items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
             }
         }
 
