@@ -30,7 +30,6 @@ namespace RssReader {
             using (var hc = new HttpClient()) {
                 //URLチェック
                 if (Uri.IsWellFormedUriString(cbURL.Text, UriKind.Absolute)) {
-                    tsslMessage.Text = "有効";
                     try {
                         string xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
                         XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
@@ -52,10 +51,8 @@ namespace RssReader {
                         items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
                     }
                     catch (Exception) {
-                        tsslMessage.Text = "取得できませんでした";
+                        tsslMessage.Text = "無効";
                     }
-                } else {
-                    tsslMessage.Text = "無効";
                 }
             }
         }
