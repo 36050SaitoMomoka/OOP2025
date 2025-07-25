@@ -28,34 +28,40 @@ namespace RssReader {
         private async void btRssGet_Click(object sender, EventArgs e) {
             //解答
             using (var hc = new HttpClient()) {
-                string xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
-                XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
+                //URLチェック
+                if (Uri.IsWellFormedUriString(cbURL.Text, UriKind.Absolute)) {
+                    tsslMessage.Text = "有効";
+                    try {
+                        string xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
+                        XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
 
-                //using (var wc = new WebClient()) {
-                //var url = wc.OpenRead(tbUrl.Text);
-                //XDocument xdoc = XDocument.Load(url);
+                        //using (var wc = new WebClient()) {
+                        //var url = wc.OpenRead(tbUrl.Text);
+                        //XDocument xdoc = XDocument.Load(url);
 
-                //RSSを解析して必要な要素を取得
-                items = xdoc.Root.Descendants("item")
-                    .Select(x =>
-                        new ItemData {
-                            Title = (string?)x.Element("title"),
-                            Link = (string?)x.Element("link"),
-                        }).ToList();
+                        //RSSを解析して必要な要素を取得
+                        items = xdoc.Root.Descendants("item")
+                            .Select(x =>
+                                new ItemData {
+                                    Title = (string?)x.Element("title"),
+                                    Link = (string?)x.Element("link"),
+                                }).ToList();
 
-                //リストボックスへタイトルを表示
-                lbTitles.Items.Clear();
-                items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
+                        //リストボックスへタイトルを表示
+                        lbTitles.Items.Clear();
+                        items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
+                    }
+                    catch (Exception) {
+                        tsslMessage.Text = "取得できませんでした";
+                    }
+                } else {
+                    tsslMessage.Text = "無効";
+                }
             }
         }
 
         //コンボボックスの文字列をチェックしてアクセス可能なURLを返却する
         private string getRssUrl(string str) {
-            //↓だめだった
-            ////コンボボックスがURLだった時
-            //if(str.StartsWith("http://") || str.StartsWith("https://")) {
-            //    return str;
-            //}
             //解答
             if (rssUrlDict.ContainsKey(str)) {
                 return rssUrlDict[str];
