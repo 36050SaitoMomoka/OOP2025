@@ -118,6 +118,10 @@ namespace RssReader {
         private void Form1_Load(object sender, EventArgs e) {
             GoForwardBtEnableSet();
 
+            //リストボックスの色設定用
+            lbTitles.DrawMode = DrawMode.OwnerDrawFixed;
+            lbTitles.DrawItem += lbTitles_DrawItem;
+
             //コンボボックスから選択（解答）
             cbURL.DataSource = rssUrlDict.Select(k => k.Key).ToList();
 
@@ -174,6 +178,29 @@ namespace RssReader {
             cbURL.SelectedIndex = -1;
             //テキストボックスの表示　空白
             tbAdd.Text = "";
+        }
+
+        //リストボックスに交互に色をつける
+        private void lbTitles_DrawItem(object sender, DrawItemEventArgs e) {
+
+            //０行の時
+            if (e.Index < 0) return;
+
+            //背景色
+            if (e.Index % 2 == 0) {
+                //偶数行
+                e.Graphics.FillRectangle(Brushes.White, e.Bounds);
+            } else {
+                //奇数行
+                e.Graphics.FillRectangle(Brushes.LightGray, e.Bounds);
+            }
+
+            //テキスト描画
+            string itemText = ((ListBox)sender).Items[e.Index].ToString() ?? "エラー";
+            e.Graphics.DrawString(itemText, e.Font, Brushes.Black, e.Bounds);
+
+            //選択枠の描画
+            e.DrawFocusRectangle();
         }
     }
 }
