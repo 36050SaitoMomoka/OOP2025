@@ -26,55 +26,107 @@ namespace RssReader {
         }
 
         private async void btRssGet_Click(object sender, EventArgs e) {
-            try {
-                using (var hc = new HttpClient()) {
-                    string xml = await hc.GetStringAsync(cbURL.Text);
-                    XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
+            //解答
+            using (var hc = new HttpClient()) {
+                string xml = await hc.GetStringAsync(getRssUrl(cbURL.Text));
+                XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
 
-                    //using (var wc = new WebClient()) {
-                    //var url = wc.OpenRead(tbUrl.Text);
-                    //XDocument xdoc = XDocument.Load(url);
+                //using (var wc = new WebClient()) {
+                //var url = wc.OpenRead(tbUrl.Text);
+                //XDocument xdoc = XDocument.Load(url);
 
-                    //RSSを解析して必要な要素を取得
-                    items = xdoc.Root.Descendants("item")
-                        .Select(x =>
-                            new ItemData {
-                                Title = (string?)x.Element("title"),
-                                Link = (string?)x.Element("link"),
-                            }).ToList();
-                }
+                //RSSを解析して必要な要素を取得
+                items = xdoc.Root.Descendants("item")
+                    .Select(x =>
+                        new ItemData {
+                            Title = (string?)x.Element("title"),
+                            Link = (string?)x.Element("link"),
+                        }).ToList();
+
+                //リストボックスへタイトルを表示
+                lbTitles.Items.Clear();
+                items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
             }
-            catch (Exception) {
-                using (var hc = new HttpClient()) {
-                    var value = rssUrlDict[cbURL.Text];
-                    string xml = await hc.GetStringAsync(value.ToString());
-                    XDocument xdoc = XDocument.Parse(xml);
-
-                    //RSSを解析して必要な要素を取得
-                    items = xdoc.Root.Descendants("item")
-                        .Select(x =>
-                            new ItemData {
-                                Title = (string?)x.Element("title"),
-                                Link = (string?)x.Element("link"),
-                            }).ToList();
-                }
-            }
-
-            //リストボックスへタイトルを表示
-            lbTitles.Items.Clear();
-            items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
         }
 
+        //コンボボックスの文字列をチェックしてアクセス可能なURLを返却する
+        private string getRssUrl(string str) {
+            //↓だめだった
+            ////コンボボックスがURLだった時
+            //if(str.StartsWith("http://") || str.StartsWith("https://")) {
+            //    return str;
+            //}
+            //解答
+            if (rssUrlDict.ContainsKey(str)) {
+                return rssUrlDict[str];
+            }
+            return str;
+
+            //foreach (var item in rssUrlDict) {
+            //    if (str.Contains(item.Key)) {
+            //        return item.Value;
+            //    }
+            //}
+            ////エラー用
+            //return "https://news.yahoo.co.jp/rss";
+        }
+
+        //try {
+        //    using (var hc = new HttpClient()) {
+        //        string xml = await hc.GetStringAsync(cbURL.Text);
+        //        XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
+
+        //        //using (var wc = new WebClient()) {
+        //        //var url = wc.OpenRead(tbUrl.Text);
+        //        //XDocument xdoc = XDocument.Load(url);
+
+        //        //RSSを解析して必要な要素を取得
+        //        items = xdoc.Root.Descendants("item")
+        //            .Select(x =>
+        //                new ItemData {
+        //                    Title = (string?)x.Element("title"),
+        //                    Link = (string?)x.Element("link"),
+        //                }).ToList();
+        //    }
+        //}
+        //catch (Exception) {
+        //    using (var hc = new HttpClient()) {
+        //        var value = rssUrlDict[cbURL.Text];
+        //        string xml = await hc.GetStringAsync(value.ToString());
+        //        XDocument xdoc = XDocument.Parse(xml);
+
+        //        //RSSを解析して必要な要素を取得
+        //        items = xdoc.Root.Descendants("item")
+        //            .Select(x =>
+        //                new ItemData {
+        //                    Title = (string?)x.Element("title"),
+        //                    Link = (string?)x.Element("link"),
+        //                }).ToList();
+        //    }
+        //}
+
+        ////リストボックスへタイトルを表示
+        //lbTitles.Items.Clear();
+        //items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
+
         //タイトルを選択（クリック）したときに呼ばれるイベントハンドラ
+
         private void lbTitles_Click(object sender, EventArgs e) {
             wvRssLink.Source = new Uri(items[lbTitles.SelectedIndex].Link ?? "https://www.yahoo.co.jp/");
         }
 
         private void Form1_Load(object sender, EventArgs e) {
             GoForwardBtEnableSet();
-            foreach (var item in rssUrlDict.Keys) {
-                cbURL.Items.Add(item);
-            }
+
+            //コンボボックスから選択（解答）
+            cbURL.DataSource = rssUrlDict.Select(k => k.Key).ToList();
+
+            //foreach (var item in rssUrlDict.Keys) {
+            //    cbURL.Items.Add(item);
+            //}
+
+            //コンボボックスの初期表示　空白
+            cbURL.SelectedIndex = -1;
         }
 
         //戻るボタン
@@ -94,6 +146,22 @@ namespace RssReader {
         private void GoForwardBtEnableSet() {
             btGoBack.Enabled = wvRssLink.CanGoBack;
             btGoForward.Enabled = wvRssLink.CanGoForward;
+        }
+
+        //お気に入り登録対応
+        private void btAdd_Click(object sender, EventArgs e) {
+            if (rssUrlDict.ContainsKey(cbURL.Text) || rssUrlDict.ContainsValue(cbURL.Text)) {
+                tsslMessage.Text = "名前またはURLがすでに登録されています";
+            } else {
+                rssUrlDict.Add(tbAdd.Text, cbURL.Text);
+                cbURL.DataSource = rssUrlDict.Select(x => x.Key).ToList();
+                tsslMessage.Text = "登録しました。";
+
+                //コンボボックスの表示　空白
+                cbURL.SelectedIndex = -1;
+                //テキストボックスの表示　空白
+                tbAdd.Text = "";
+            }
         }
     }
 }
