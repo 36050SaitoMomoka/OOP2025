@@ -12,7 +12,7 @@ namespace RssReader {
     public partial class Form1 : Form {
 
         private List<ItemData> items;
-        public  Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
+        public Dictionary<string, string> rssUrlDict = new Dictionary<string, string>() {
             {"主要","https://news.yahoo.co.jp/rss/topics/top-picks.xml" },
             {"国内","https://news.yahoo.co.jp/rss/topics/domestic.xml" },
             {"国際", "https://news.yahoo.co.jp/rss/topics/world.xml"},
@@ -75,50 +75,11 @@ namespace RssReader {
             //return "https://news.yahoo.co.jp/rss";
         }
 
-        //try {
-        //    using (var hc = new HttpClient()) {
-        //        string xml = await hc.GetStringAsync(cbURL.Text);
-        //        XDocument xdoc = XDocument.Parse(xml);   //RSSの取得
-
-        //        //using (var wc = new WebClient()) {
-        //        //var url = wc.OpenRead(tbUrl.Text);
-        //        //XDocument xdoc = XDocument.Load(url);
-
-        //        //RSSを解析して必要な要素を取得
-        //        items = xdoc.Root.Descendants("item")
-        //            .Select(x =>
-        //                new ItemData {
-        //                    Title = (string?)x.Element("title"),
-        //                    Link = (string?)x.Element("link"),
-        //                }).ToList();
-        //    }
-        //}
-        //catch (Exception) {
-        //    using (var hc = new HttpClient()) {
-        //        var value = rssUrlDict[cbURL.Text];
-        //        string xml = await hc.GetStringAsync(value.ToString());
-        //        XDocument xdoc = XDocument.Parse(xml);
-
-        //        //RSSを解析して必要な要素を取得
-        //        items = xdoc.Root.Descendants("item")
-        //            .Select(x =>
-        //                new ItemData {
-        //                    Title = (string?)x.Element("title"),
-        //                    Link = (string?)x.Element("link"),
-        //                }).ToList();
-        //    }
-        //}
-
-        ////リストボックスへタイトルを表示
-        //lbTitles.Items.Clear();
-        //items.ForEach(item => lbTitles.Items.Add(item.Title ?? "データなし"));  //リンクを使う
-
-        //タイトルを選択（クリック）したときに呼ばれるイベントハンドラ
-
         private void lbTitles_Click(object sender, EventArgs e) {
             wvRssLink.Source = new Uri(items[lbTitles.SelectedIndex].Link ?? "https://www.yahoo.co.jp/");
         }
 
+        //フォームを読み込んだ時
         private void Form1_Load(object sender, EventArgs e) {
             GoForwardBtEnableSet();
 
@@ -212,12 +173,12 @@ namespace RssReader {
 
         //お気に入り保存
         private void btSave_Click(object sender, EventArgs e) {
-            Serialize("favorite.json",rssUrlDict);
+            Serialize("favorite.json", rssUrlDict);
             tsslMessage.Text = "保存しました。";
         }
 
         //シリアル化してファイルへ出力する
-        static void Serialize(string filePath, Dictionary<string,string> dictionary) {
+        static void Serialize(string filePath, Dictionary<string, string> dictionary) {
             var options = new JsonSerializerOptions {
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
@@ -228,7 +189,7 @@ namespace RssReader {
         }
 
         //作成したファイルを読み込み逆シリアル化
-        static Dictionary<string,string> Deserialize_f(string filePath) {
+        static Dictionary<string, string> Deserialize_f(string filePath) {
             var options = new JsonSerializerOptions {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
                 WriteIndented = true,
@@ -240,8 +201,13 @@ namespace RssReader {
             }
 
             var text = File.ReadAllText(filePath);
-            var empd = JsonSerializer.Deserialize<Dictionary<string,string>>(text, options);
+            var empd = JsonSerializer.Deserialize<Dictionary<string, string>>(text, options);
             return empd ?? [];
+        }
+
+        //フォームを終了
+        private void btExit_Click(object sender, EventArgs e) {
+            this.Close();
         }
     }
 }

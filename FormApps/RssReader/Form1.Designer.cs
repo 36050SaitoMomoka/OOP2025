@@ -37,6 +37,7 @@
             tsslMessage = new ToolStripStatusLabel();
             btRemove = new Button();
             btSave = new Button();
+            btExit = new Button();
             ((System.ComponentModel.ISupportInitialize)wvRssLink).BeginInit();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -175,7 +176,7 @@
             // btSave
             // 
             btSave.Font = new Font("メイリオ", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            btSave.Location = new Point(593, 646);
+            btSave.Location = new Point(475, 646);
             btSave.Name = "btSave";
             btSave.Size = new Size(112, 32);
             btSave.TabIndex = 11;
@@ -183,11 +184,23 @@
             btSave.UseVisualStyleBackColor = true;
             btSave.Click += btSave_Click;
             // 
+            // btExit
+            // 
+            btExit.Font = new Font("メイリオ", 12F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            btExit.Location = new Point(593, 646);
+            btExit.Name = "btExit";
+            btExit.Size = new Size(112, 32);
+            btExit.TabIndex = 12;
+            btExit.Text = "終了";
+            btExit.UseVisualStyleBackColor = true;
+            btExit.Click += btExit_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(717, 703);
+            Controls.Add(btExit);
             Controls.Add(btSave);
             Controls.Add(btRemove);
             Controls.Add(statusStrip1);
@@ -226,5 +239,6 @@
         private ToolStripStatusLabel tsslMessage;
         private Button btRemove;
         private Button btSave;
+        private Button btExit;
     }
 }
