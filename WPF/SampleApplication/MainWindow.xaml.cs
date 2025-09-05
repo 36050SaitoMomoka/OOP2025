@@ -23,6 +23,7 @@ namespace SampleApplication
         public MainWindow()
         {
             InitializeComponent();
+            checkBoxTextBlock.Text = "未チェック";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
@@ -35,6 +36,30 @@ namespace SampleApplication
 
         private void okButton_Click(object sender, RoutedEventArgs e) {
             //MessageBox.Show(string.Format("入力された文字は{0}です", messageTextBox.Text));
+        }
+
+        private void seasonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            seasonTextBlock.Text = (string)((ComboBoxItem)(seasonComboBox.SelectedItem)).Content;
+        }
+
+        private void redRadioButton_Checked(object sender, RoutedEventArgs e) {
+            colorText.Text = (string)((RadioButton)(sender)).Content;
+        }
+
+        private void yellowRadioButton_Checked(object sender, RoutedEventArgs e) {
+            colorText.Text = "黄";
+        }
+
+        private void blueRadioButton_Checked(object sender, RoutedEventArgs e) {
+            colorText.Text = "青";
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e) {
+            checkBoxTextBlock.Text = "チェック済み";
+        }
+
+        private void checkBox_Unchecked(object sender, RoutedEventArgs e) {
+            checkBoxTextBlock.Text = "未チェック";
         }
     }
 }
