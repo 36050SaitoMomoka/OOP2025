@@ -69,5 +69,12 @@ namespace ColorChecker {
                 bSlider.Value = selected.Color.B;
             }
         }
+
+        //リスト右クリックで削除
+        private void MenuItem_Click(object sender, RoutedEventArgs e) {
+            if (colorStock.SelectedItem != null) {
+                colorStock.Items.Remove(colorStock.SelectedItem);
+            }
+        }
     }
 }

@@ -63,7 +63,13 @@
             </Grid.RowDefinitions>
             <!--ここから追加-->
             <Button Content="STOCK" HorizontalAlignment="Stretch" Margin="8" VerticalAlignment="Stretch" FontSize="20" Click="stockButton_Click"/>
-            <ListBox x:Name="colorStock" HorizontalAlignment="Center" Height="227" Margin="0,47,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="217" FontSize="18"/>
+            <ListBox x:Name="colorStock" HorizontalAlignment="Center" Height="227" Margin="0,47,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="217" FontSize="18">
+                <ListBox.ContextMenu>
+                    <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                        <MenuItem Header="削除" Click="MenuItem_Click" Command="{Binding RemoveItemCommand}" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
         </Grid>
     </Grid>
 </Window>
