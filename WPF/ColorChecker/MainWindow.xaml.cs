@@ -37,29 +37,45 @@ namespace ColorChecker {
                 Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value),
                 Name = "Custom Color"
             };
+            //スライダーの変更にコンボボックスを合わせる
+            var colorList = colorComboBox.ItemsSource as IEnumerable<MyColor>;
+            if (colorList != null) {
+                colorComboBox.SelectedIndex = colorList.ToList().FindIndex(c => c.Color.Equals(myColor.Color));
+            }
+
+            //colorComboBox.SelectedIndex = ((MyColor[])DataContext).ToList().FindIndex(c => c.Color.Equals(myColor.Color));
 
             colorArea.Background = new SolidColorBrush(myColor.Color);
         }
 
+        //ストック（リスト）に追加
         private void stockButton_Click(object sender, RoutedEventArgs e) {
             var myColor = new MyColor {
                 Color = Color.FromRgb((byte)rSlider.Value, (byte)gSlider.Value, (byte)bSlider.Value),
                 Name = "Custom Color"
             };
-            if (colorComboBox.SelectedItem is MyColor selectedColor) {
-                Name = selectedColor.Name;
-                colorStock.Items.Add(Name);
+
+            //登録済みか確認
+            if (!colorStock.Items.Contains(myColor)) {
+                if (colorComboBox.SelectedItem is MyColor selectedColor) {
+                    Name = selectedColor.Name;
+                    colorStock.Items.Add(Name);
+                } else {
+                    colorStock.Items.Add(myColor);
+                }
+                colorComboBox.SelectedItem = null;
             } else {
-                colorStock.Items.Add(myColor);
+                MessageBox.Show("既に登録済みです！", "ColorChecker", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            colorComboBox.SelectedItem = null;
         }
 
+        //コンボボックスの色一覧
         private MyColor[] GetColorList() {
             return typeof(Colors).GetProperties(BindingFlags.Public | BindingFlags.Static)
                 .Select(i => new MyColor() { Color = (Color)i.GetValue(null), Name = i.Name }).ToArray();
         }
 
+        //コンボボックスから選択
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (colorComboBox.SelectedItem is MyColor selected) {
                 colorArea.Background = new SolidColorBrush(selected.Color);
