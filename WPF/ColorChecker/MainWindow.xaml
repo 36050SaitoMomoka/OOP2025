@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="colorArea" Margin="10" Background="Black"/>
+                <Label x:Name="colorArea" Margin="10,10,10,10" Background="Black"/>
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -64,8 +64,8 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
                     <!--ここから追加-->
-                    <Button Content="STOCK" HorizontalAlignment="Stretch" Margin="8" VerticalAlignment="Stretch" FontSize="20" Click="stockButton_Click"/>
-                    <ListBox x:Name="colorStock" HorizontalAlignment="Center" Height="227" Margin="0,47,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="217" FontSize="18">
+                    <Button Content="STOCK" HorizontalAlignment="Stretch" Margin="8" VerticalAlignment="Stretch" FontSize="20" Click="stockButton_Click" RenderTransformOrigin="0.509,-0.528"/>
+                    <ListBox x:Name="colorStock" SelectionChanged="colorStock_SelectionChanged" HorizontalAlignment="Center" Height="240" VerticalAlignment="Top" Width="217" FontSize="18" Grid.Row="1">
                         <ListBox.ContextMenu>
                             <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                 <MenuItem Header="削除" Click="MenuItem_Click" Command="{Binding RemoveItemCommand}" />

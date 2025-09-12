@@ -76,5 +76,32 @@ namespace ColorChecker {
                 colorStock.Items.Remove(colorStock.SelectedItem);
             }
         }
+
+        //リストボックスから選択
+        private void colorStock_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (colorStock.SelectedItem is MyColor selectedColor) {
+                rSlider.Value = selectedColor.Color.R;
+                gSlider.Value = selectedColor.Color.G;
+                bSlider.Value = selectedColor.Color.B;
+
+                Color resetColor = selectedColor.Color;
+                resetColor.A = 255;
+
+                colorArea.Background = new SolidColorBrush(selectedColor.Color);
+            } else if (colorStock.SelectedItem is string selectedColorName) {
+                foreach (var item in GetColorList()) {
+                    if (item.Name == selectedColorName) {
+                        rSlider.Value = item.Color.R;
+                        gSlider.Value = item.Color.G;
+                        bSlider.Value = item.Color.B;
+
+                        Color resetColor = item.Color;
+                        resetColor.A = 255;
+
+                        colorArea.Background = new SolidColorBrush(item.Color);
+                    }
+                }
+            }
+        }
     }
 }
