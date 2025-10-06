@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,9 @@ namespace PrismObservesSample {
 
         //コンストラクタ
         public MainWindowViewModel() {
-            SumCommand = new DelegateCommand(ExcuteSum,canExcuteSum);
+            SumCommand = new DelegateCommand(ExcuteSum, canExcuteSum)
+                .ObservesProperty(() => Input1)
+                .ObservesProperty(() => Input2);
         }
         public DelegateCommand SumCommand { get; }
 
@@ -39,8 +42,7 @@ namespace PrismObservesSample {
 
         //足し算処理を実行できるか否かのチェック
         private bool canExcuteSum() {
-            int result;
-            return (int.TryParse(Input1 + Input2, out result));
+            return (int.TryParse(Input1, out _) && int.TryParse(Input2, out _));
         }
     }
 }
