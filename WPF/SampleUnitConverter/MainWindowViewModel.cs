@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,16 +8,16 @@ using System.Transactions;
 using System.Windows.Input;
 
 namespace SampleUnitConverter {
-    internal class MainWindowViewModel : ViewModel {
+    internal class MainWindowViewModel : BindableBase {
         //フィールド
         private double metricValue;
         private double imperialValue;
 
-        //▲で呼ばれるコマンド
-        public ICommand ImperialUnitToMetric { get; set; }
+        ////▲で呼ばれるコマンド
+        //public ICommand ImperialUnitToMetric { get; set; }
 
-        //▼で呼ばれるコマンド
-        public ICommand MetricToImperialUnit { get; set; }
+        ////▼で呼ばれるコマンド
+        //public ICommand MetricToImperialUnit { get; set; }
 
         //上のComboBoxで選択されている値
         public MetricUnit CurrentMetricUnit { get; set; }
@@ -27,34 +28,29 @@ namespace SampleUnitConverter {
         //プロパティ
         public double MetricValue {
             get => metricValue;
-            set {
-                this.metricValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref metricValue, value);
         }
 
         public double ImperialValue {
             get => imperialValue;
-            set {
-                this.imperialValue = value;
-                this.OnPropertyChanged();
-            }
+            set => SetProperty(ref imperialValue, value);
         }
 
         public MainWindowViewModel() {
-
             CurrentMetricUnit = MetricUnit.Units.First();
             CurrentImperialUnit = ImperialUnit.Units.First();
 
             ImperialUnitToMetric = new DelegateCommand(
-                () => MetricValue = 
-                     CurrentMetricUnit.FromImperialUnit(CurrentImperialUnit,ImperialValue));
+                () => MetricValue =
+                     CurrentMetricUnit.FromImperialUnit(CurrentImperialUnit, ImperialValue));
 
             MetricToImperialUnit = new DelegateCommand(
                 () => ImperialValue =
                     CurrentImperialUnit.FromMetricUnit(CurrentMetricUnit, MetricValue));
         }
 
+        public DelegateCommand ImperialUnitToMetric { get; }
+        public DelegateCommand MetricToImperialUnit { get; }
 
 
     }
