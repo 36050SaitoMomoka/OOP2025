@@ -307,5 +307,6 @@ namespace CarReportSystem {
                 MessageBox.Show(ex.Message);//より具体的なエラーを出力
             }
         }
+
     }
 }
