@@ -19,11 +19,13 @@ namespace CustomerApp;
 /// </summary>
 public partial class MainWindow : Window {
     private List<Customer> _customer = new List<Customer>();
+    private Customer _selected;
 
     public MainWindow() {
         InitializeComponent();
         ReadDatabase();
         CustomerList.ItemsSource = _customer;
+        //imageBox.Source
     }
 
     //データベースから全レコード取得
@@ -36,26 +38,69 @@ public partial class MainWindow : Window {
 
     //顧客一覧
     private void CustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-        var selected = CustomerList.SelectedItem as Customer;
+        var _selected = CustomerList.SelectedItem as Customer;
 
-        if (selected == null) return;
+        if (_selected == null) return;
 
-        NameTextBox.Text = selected.Name;
-        PhoneTextBox.Text = selected.Phone;
-        AddressTextBox.Text = selected.Address;
+        NameTextBox.Text = _selected.Name;
+        PhoneTextBox.Text = _selected.Phone;
+        AddressTextBox.Text = _selected.Address;
     }
 
     //保存ボタン
     private void SaveButton_Click(object sender, RoutedEventArgs e) {
-        var person = new Customer() {
-            Name = NameTextBox.Text,
-            Phone = PhoneTextBox.Text,
-            Address = AddressTextBox.Text,
-        };
+        var newName = NameTextBox.Text;
+        var newPhone = PhoneTextBox.Text;
+        var newAddress = AddressTextBox.Text;
 
-        using (var connection = new SQLiteConnection(App.databasePath)) {
-            connection.CreateTable<Customer>();
-            connection.Insert(person);
+        if (string.IsNullOrWhiteSpace(newName)) return;
+
+        bool isModified = _selected != null &&
+            (_selected.Name != newName ||
+             _selected.Phone != newPhone ||
+             _selected.Address != newAddress);
+
+        if (_selected != null && isModified) {
+            var result = MessageBox.Show(
+                "この顧客情報は変更されています。\n更新しますか？「いいえ」を選ぶと新規保存します。",
+                "変更確認",
+                MessageBoxButton.YesNoCancel
+            );
+
+            if (result == MessageBoxResult.Yes) {
+                _selected.Name = newName;
+                _selected.Phone = newPhone;
+                _selected.Address = newAddress;
+
+                using (var connection = new SQLiteConnection(App.databasePath)) {
+                    connection.CreateTable<Customer>();
+                    connection.Update(_selected);
+                }
+            } else if (result == MessageBoxResult.No) {
+                var newCustomer = new Customer() {
+                    Name = newName,
+                    Phone = newPhone,
+                    Address = newAddress
+                };
+
+                using (var connection = new SQLiteConnection(App.databasePath)) {
+                    connection.CreateTable<Customer>();
+                    connection.Update(_selected);
+                }
+            } else {
+                return;
+            }
+        } else {
+            var person = new Customer() {
+                Name = NameTextBox.Text,
+                Phone = PhoneTextBox.Text,
+                Address = AddressTextBox.Text,
+            };
+
+            using (var connection = new SQLiteConnection(App.databasePath)) {
+                connection.CreateTable<Customer>();
+                connection.Insert(person);
+            }
         }
 
         //データ取得
