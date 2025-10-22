@@ -29,32 +29,49 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="画像" FontSize="20" Margin="10" TextAlignment="Right"/>
 
         <!--入力-->
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="10"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
+        <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
+        <TextBox x:Name="PhoneTextBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
+        <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
 
-        <!--ドロップダウンリスト-->
-        <ComboBox x:Name="ActionSelector" Grid.Row="0" Grid.Column="2" Width="120" Margin="5" SelectedIndex="0" FontSize="20" HorizontalAlignment="Center">
-            <ComboBoxItem Content="保存"/>
-            <ComboBoxItem Content="更新"/>
-            <ComboBoxItem Content="削除"/>
-        </ComboBox>
-
-        <!--処理ボタン-->
-        <Button x:Name="ExectionButton" Grid.Row="5" Grid.Column="2" Content="実行" Margin="5" FontSize="20" Click="ExectionButton_Click"/>
+        <!--保存ボタン-->
+        <Button x:Name="SaveButton" Grid.Row="5" Grid.Column="2" Content="保存" Margin="5" FontSize="20" Click="SaveButton_Click"/>
 
         <!--画像-->
-        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Height="180" Margin="10" VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="0.5">
-            <Image x:Name="Image" Stretch="Uniform"/>
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="430" Height="190" VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="0.5">
+            <Image x:Name="Picture" Stretch="Uniform"/>
         </Border>
 
         <!--画像選択・削除ボタン-->
         <Button x:Name="OpenFile" Content="開く..." Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"/>
         <Button x:Name="DeleteImage" Content="削除" Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4"/>
 
-        <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Margin="4">
-            <ListView x:Name="CustomerList" SelectionChanged="CustomerList_SelectionChanged"/>
+        <!--リスト-->
+        <Border Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Margin="4">
+            <ListView x:Name="CustomerList" SelectionChanged="CustomerList_SelectionChanged">
+
+                <!--リスト表示-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" FontSize="20"/>
+                            <TextBlock Text="{Binding Phone}" Foreground="Blue"/>
+                            <TextBlock Text="{Binding Address}" Foreground="Green"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <!--右クリックで削除-->
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="削除" Click="DeleteCustomer_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
         </Border>
+
+        <!--フィルタリング-->
+        <TextBox x:Name="SearchTextBox" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Margin="4" FontSize="20" TextChanged="SearchTextBox_TextChanged"/>
+
 
 
 
