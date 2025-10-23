@@ -17,7 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -34,16 +34,18 @@
         <TextBox x:Name="AddressTextBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10"/>
 
         <!--保存ボタン-->
-        <Button x:Name="SaveButton" Grid.Row="5" Grid.Column="2" Content="保存" Margin="5" FontSize="20" Click="SaveButton_Click"/>
+        <Button x:Name="SaveButton" Grid.Row="4" Grid.Column="2" Content="保存" Margin="5" FontSize="20" Click="SaveButton_Click"/>
 
         <!--画像-->
-        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="430" Height="190" VerticalAlignment="Bottom" BorderBrush="Gray" BorderThickness="0.5">
-            <Image x:Name="Picture" Stretch="Uniform"/>
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Width="340" Height="190" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="0.5">
+            <Viewbox Stretch="Fill">
+                <Image x:Name="Picture" Stretch="Uniform"/>
+            </Viewbox>
         </Border>
 
         <!--画像選択・削除ボタン-->
-        <Button x:Name="OpenFile" Content="開く..." Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"/>
-        <Button x:Name="DeleteImage" Content="削除" Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4"/>
+        <Button x:Name="OpenFile" Content="開く..." Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4" Click="OpenFile_Click"/>
+        <Button x:Name="DeleteImage" Content="削除" Grid.Row="3" Grid.Column="1" Width="80" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4" Click="DeleteImage_Click"/>
 
         <!--リスト-->
         <Border Grid.Row="1" Grid.Column="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Margin="4">
@@ -52,11 +54,20 @@
                 <!--リスト表示-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Name}" FontSize="20"/>
-                            <TextBlock Text="{Binding Phone}" Foreground="Blue"/>
-                            <TextBlock Text="{Binding Address}" Foreground="Green"/>
-                        </StackPanel>
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,120,0">
+                                <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Phone}" Foreground="Blue" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Address}" Foreground="Green" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <Image Grid.Column="1" Source="{Binding PictureImage}" Width="200" Height="100" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
 

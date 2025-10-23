@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace CustomerApp;
 
@@ -20,6 +21,7 @@ namespace CustomerApp;
 public partial class MainWindow : Window {
     private List<Customer> _customer = new List<Customer>();
     private Customer _selected;
+    private byte[] SelectedPictureBytes;
 
     public MainWindow() {
         InitializeComponent();
@@ -38,13 +40,14 @@ public partial class MainWindow : Window {
 
     //顧客一覧
     private void CustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-        var _selected = CustomerList.SelectedItem as Customer;
+        _selected = CustomerList.SelectedItem as Customer;
 
         if (_selected == null) return;
 
         NameTextBox.Text = _selected.Name;
         PhoneTextBox.Text = _selected.Phone;
         AddressTextBox.Text = _selected.Address;
+        SelectedPictureBytes = _selected.Picture;
     }
 
     //保存ボタン
@@ -85,7 +88,7 @@ public partial class MainWindow : Window {
 
                 using (var connection = new SQLiteConnection(App.databasePath)) {
                     connection.CreateTable<Customer>();
-                    connection.Update(_selected);
+                    connection.Insert(newCustomer);
                 }
             } else {
                 return;
@@ -95,6 +98,7 @@ public partial class MainWindow : Window {
                 Name = NameTextBox.Text,
                 Phone = PhoneTextBox.Text,
                 Address = AddressTextBox.Text,
+                Picture = SelectedPictureBytes,
             };
 
             using (var connection = new SQLiteConnection(App.databasePath)) {
@@ -109,6 +113,7 @@ public partial class MainWindow : Window {
 
         //画面クリア
         ClearScreen();
+        _selected = null;
     }
 
     //フィルタリング
@@ -134,10 +139,8 @@ public partial class MainWindow : Window {
             connection.Delete(item);    //データベースから選択されているレコードの削除
             ReadDatabase();
             CustomerList.ItemsSource = _customer;
-
-            ReadDatabase();
-            CustomerList.ItemsSource = _customer;
         }
+        ClearScreen();
     }
 
     //画面クリア
@@ -145,6 +148,25 @@ public partial class MainWindow : Window {
         NameTextBox.Text = "";
         PhoneTextBox.Text = "";
         AddressTextBox.Text = "";
+        Picture.Source = null;
+    }
+
+    //画像ファイルを開く
+    private void OpenFile_Click(object sender, RoutedEventArgs e) {
+        var dialog = new OpenFileDialog();
+        dialog.Filter = "画像ファイル (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg";
+
+        if (dialog.ShowDialog() == true) {
+            // 画像を表示
+            Picture.Source = new BitmapImage(new Uri(dialog.FileName));
+
+            // 画像を byte[] に変換して保存用に保持
+            SelectedPictureBytes = File.ReadAllBytes(dialog.FileName);
+        }
+    }
+
+    //画像を削除
+    private void DeleteImage_Click(object sender, RoutedEventArgs e) {
         Picture.Source = null;
     }
 }
