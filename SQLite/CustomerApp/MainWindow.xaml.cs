@@ -1,7 +1,11 @@
 ﻿using CustomerApp.Data;
 using Microsoft.Win32;
 using SQLite;
+using System.IO;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
 
 namespace CustomerApp;
 
@@ -83,7 +86,8 @@ public partial class MainWindow : Window {
                 var newCustomer = new Customer() {
                     Name = newName,
                     Phone = newPhone,
-                    Address = newAddress
+                    Address = newAddress,
+                    Picture = SelectedPictureBytes,
                 };
 
                 using (var connection = new SQLiteConnection(App.databasePath)) {
@@ -168,5 +172,45 @@ public partial class MainWindow : Window {
     //画像を削除
     private void DeleteImage_Click(object sender, RoutedEventArgs e) {
         Picture.Source = null;
+    }
+
+    //郵便番号から住所検索
+    private async void ToAddress_Click(object sender, RoutedEventArgs e) {
+        var zipCode = PostcodeTextBox.Text.Trim();
+
+        if (zipCode.Length != 7 || !zipCode.All(char.IsDigit)) {
+            MessageBox.Show("郵便番号を入力してください(例：0000000)");
+            return;
+        }
+
+        var address = await GetAddressFromZip(zipCode);
+        AddressTextBox.Text = address;
+    }
+
+    //住所取得
+    private async Task<string> GetAddressFromZip(string zipCode) {
+        try {
+            using var client = new HttpClient();
+            var url = $"https://zipcloud.ibsnet.co.jp/api/search?zipcode={zipCode}";
+            var response = await client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                return "住所取得に失敗しました";
+
+            var json = await response.Content.ReadAsStringAsync();
+            using var doc = JsonDocument.Parse(json);
+
+            var root = doc.RootElement;
+            if (root.GetProperty("results").ValueKind == JsonValueKind.Null) {
+                return "該当する住所が見つかりません";
+            }
+
+            var result = root.GetProperty("results")[0];
+            var address = $"{result.GetProperty("address1").GetString()}{result.GetProperty("address2").GetString()}{result.GetProperty("address3").GetString()}";
+            return address;
+        }
+        catch (Exception ex) {
+            return $"エラー: {ex.Message}";
+        }
     }
 }
