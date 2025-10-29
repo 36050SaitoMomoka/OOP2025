@@ -57,18 +57,27 @@ namespace Exercise01 {
 
         private static void Exercise1_5() {
             var category = Library.Books
+                .Where(b => b.PublishedYear == 2022)
                 .Join(Library.Categories,
-                    book => book.CategoryId,
-                    category => category.Id,
-                    (book, category) => new {
-                        book.Title,
-                        Category = category.Name,
-                        book.PublishedYear,
-                    }
-                )
-                .Where(x => x.PublishedYear == 2022)
-                .Select(x => x.Category)
+                    b => b.CategoryId,
+                    c => c.Id,
+                    (b, c) => c.Name)
                 .Distinct();
+
+            #region
+            //.Join(Library.Categories,
+            //    book => book.CategoryId,
+            //    category => category.Id,
+            //    (book, category) => new {
+            //        book.Title,
+            //        Category = category.Name,
+            //        book.PublishedYear,
+            //    }
+            //)
+            //.Where(x => x.PublishedYear == 2022)
+            //.Select(x => x.Category)
+            //.Distinct();
+            #endregion
 
             foreach (var item in category) {
                 Console.WriteLine(item);
@@ -76,7 +85,24 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
+            var category = Library.Books
+                .Join(Library.Categories,
+                    book => book.CategoryId,
+                    category => category.Id,
+                    (book, category) => new {
+                        book.Title,
+                        Category = category.Name,
+                    }
+                )
+                .GroupBy(b => b.Category)
+                .OrderBy(x => x.Key);
 
+            foreach (var group in category) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"　　{book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_7() {
