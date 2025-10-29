@@ -64,7 +64,7 @@ namespace Exercise01 {
                     (b, c) => c.Name)
                 .Distinct();
 
-            #region
+            #region 自分のコード
             //.Join(Library.Categories,
             //    book => book.CategoryId,
             //    category => category.Id,
@@ -85,47 +85,91 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            var category = Library.Books
+            var groups = Library.Books
                 .Join(Library.Categories,
-                    book => book.CategoryId,
-                    category => category.Id,
-                    (book, category) => new {
-                        book.Title,
-                        Category = category.Name,
+                    b => b.CategoryId,
+                    c => c.Id,
+                    (b, c) => new {
+                        CategoryName = c.Name,
+                        b.Title
                     }
                 )
-                .GroupBy(b => b.Category)
+                .GroupBy(x => x.CategoryName)
                 .OrderBy(x => x.Key);
 
-            foreach (var group in category) {
+            foreach (var group in groups) {
                 Console.WriteLine($"# {group.Key}");
                 foreach (var book in group) {
                     Console.WriteLine($"　　{book.Title}");
                 }
             }
+
+            #region 自分のコード
+            //var category = Library.Books
+            //    .Join(Library.Categories,
+            //        book => book.CategoryId,
+            //        category => category.Id,
+            //        (book, category) => new {
+            //            book.Title,
+            //            Category = category.Name,
+            //        }
+            //    )
+            //    .GroupBy(b => b.Category)
+            //    .OrderBy(x => x.Key);
+
+            //foreach (var group in category) {
+            //    Console.WriteLine($"# {group.Key}");
+            //    foreach (var book in group) {
+            //        Console.WriteLine($"　　{book.Title}");
+            //    }
+            //}
+            #endregion
         }
 
         private static void Exercise1_7() {
-            var category = Library.Books
-                .Join(Library.Categories,
-                    book => book.CategoryId,
-                    category => category.Id,
-                    (book, category) => new {
-                        book.Title,
-                        Category = category.Name,
-                        book.PublishedYear,
-                    }
-                 )
-                .Where(b => b.Category == "Development")
-                .GroupBy(b => b.PublishedYear)
+            var groups = Library.Categories
+                .Where(c => c.Name.Equals("Development"))
+                .Join(Library.Books,
+                    c => c.Id,
+                    b => b.CategoryId,
+                    (c, b) => new {
+                        b.Title,
+                        b.PublishedYear
+                    })
+                .GroupBy(x => x.PublishedYear)
                 .OrderBy(x => x.Key);
 
-            foreach (var group in category) {
+            foreach (var group in groups) {
                 Console.WriteLine($"# {group.Key}");
                 foreach (var book in group) {
                     Console.WriteLine($"　　{book.Title}");
                 }
             }
+
+            #region 自分のコード
+
+            //var category = Library.Books
+            //    .Join(Library.Categories,
+            //        book => book.CategoryId,
+            //        category => category.Id,
+            //        (book, category) => new {
+            //            book.Title,
+            //            Category = category.Name,
+            //            book.PublishedYear,
+            //        }
+            //     )
+            //    .Where(b => b.Category == "Development")
+            //    .GroupBy(b => b.PublishedYear)
+            //    .OrderBy(x => x.Key);
+
+
+            //foreach (var group in category) {
+            //    Console.WriteLine($"# {group.Key}");
+            //    foreach (var book in group) {
+            //        Console.WriteLine($"　　{book.Title}");
+            //    }
+            //}
+            #endregion
         }
 
         private static void Exercise1_8() {
