@@ -36,7 +36,7 @@ namespace Exercise01 {
                 .GroupBy(b => b.PublishedYear)
                 .Select(x => new {
                     PublisheYear = x.Key,
-                    Count = x.Count()
+                    Count = x.Count(),
                 })
                 .OrderBy(b => b.PublisheYear);
 
@@ -53,13 +53,26 @@ namespace Exercise01 {
             foreach (var item in orderby) {
                 Console.WriteLine($"{item.PublishedYear}年 {item.Price}円 {item.Title}");
             }
-
-
-
         }
 
         private static void Exercise1_5() {
+            var category = Library.Books
+                .Join(Library.Categories,
+                    book => book.CategoryId,
+                    category => category.Id,
+                    (book, category) => new {
+                        book.Title,
+                        Category = category.Name,
+                        book.PublishedYear,
+                    }
+                )
+                .Where(x => x.PublishedYear == 2022)
+                .Select(x => x.Category)
+                .Distinct();
 
+            foreach (var item in category) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise1_6() {
