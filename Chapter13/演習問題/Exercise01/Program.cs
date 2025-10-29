@@ -41,11 +41,20 @@ namespace Exercise01 {
                 .OrderBy(b => b.PublisheYear);
 
             foreach (var item in groups) {
-                Console.WriteLine($"{item.PublisheYear}年：{item.Count}");
+                Console.WriteLine($"{item.PublisheYear}：{item.Count}");
             }
         }
 
         private static void Exercise1_4() {
+            var orderby = Library.Books
+                .OrderByDescending(b => b.PublishedYear)
+                .ThenByDescending(b => b.Price);
+
+            foreach (var item in orderby) {
+                Console.WriteLine($"{item.PublishedYear}年 {item.Price}円 {item.Title}");
+            }
+
+
 
         }
 
