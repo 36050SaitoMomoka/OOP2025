@@ -106,7 +106,26 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_7() {
+            var category = Library.Books
+                .Join(Library.Categories,
+                    book => book.CategoryId,
+                    category => category.Id,
+                    (book, category) => new {
+                        book.Title,
+                        Category = category.Name,
+                        book.PublishedYear,
+                    }
+                 )
+                .Where(b => b.Category == "Development")
+                .GroupBy(b => b.PublishedYear)
+                .OrderBy(x => x.Key);
 
+            foreach (var group in category) {
+                Console.WriteLine($"# {group.Key}");
+                foreach (var book in group) {
+                    Console.WriteLine($"　　{book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_8() {
