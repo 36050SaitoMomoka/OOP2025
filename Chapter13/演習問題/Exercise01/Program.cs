@@ -173,20 +173,37 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_8() {
-            var groups = Library.Categories
-               .GroupJoin(Library.Books
-                    , c => c.Id
-                    , b => b.CategoryId,
-                    (c, books) => new {
-                        Category = c.Name,
-                        Count = books.Count(),
-                    })
-               .Where(b => b.Count >= 4)
-               .Distinct();
+            var categoryNames = Library.Categories
+                .GroupJoin(Library.Books,
+                       c => c.Id,
+                       b => b.CategoryId,
+                       (c, books) => new {
+                           CategoryName = c.Name,
+                           Count = books.Count(),
+                       })
+                .Where(x => x.Count >= 4)
+                .Select(x => x.CategoryName);
 
-            foreach (var group in groups) {
-                Console.WriteLine(group.Category);
+            foreach (var name in categoryNames) {
+                Console.WriteLine(name);
             }
+
+            #region 自分のコード
+            //var groups = Library.Categories
+            //   .GroupJoin(Library.Books
+            //        , c => c.Id
+            //        , b => b.CategoryId,
+            //        (c, books) => new {
+            //            Category = c.Name,
+            //            Count = books.Count(),
+            //        })
+            //   .Where(b => b.Count >= 4)
+            //   .Distinct();
+
+            //foreach (var group in groups) {
+            //    Console.WriteLine(group.Category);
+            //}
+            #endregion
         }
     }
 }
