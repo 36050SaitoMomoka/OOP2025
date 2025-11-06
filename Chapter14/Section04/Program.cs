@@ -9,7 +9,7 @@ namespace Section04 {
             HttpClient hc = new HttpClient();
 
             hc.DefaultRequestHeaders.UserAgent.ParseAdd(
-                "MyWikipediaClient/1.0(https://example.com/; contact@example.com)"
+                "MyWikipediaClient/1.0 (https://example.com/; contact@example.com)"
             );
 
             var text = await GetFromWikipediaAsync(hc, "太田市");

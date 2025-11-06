@@ -8,15 +8,13 @@
         mc:Ignorable="d"
         Title="WebBrowser" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="63*"/>
-            <ColumnDefinition Width="17*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!--アドレスバー-->
             <RowDefinition Height="Auto"/>
+            <!--プログレスバー-->
             <RowDefinition Height="*"/>
+            <!--ブラウザ-->
         </Grid.RowDefinitions>
 
         <!--アドレスバー-->
@@ -26,6 +24,11 @@
             <TextBox x:Name="AddressBar" Width="450" Margin="0,0,5,0" VerticalAlignment="Center"/>
             <Button Content="移動" x:Name="GoButton" Width="60" Click="GoButton_Click"/>
         </DockPanel>
+
+        <!--プログレスバー-->
+        <ProgressBar x:Name="LoadingBar" Grid.Row="1" Height="4" Margin="5,0,5,5" 
+                     Minimum="0" Maximum="100" Visibility="Collapsed" 
+                     IsIndeterminate="True"/>
 
         <!--ブラウザ-->
         <Wpf:WebView2 x:Name="WebView" Margin="5,5,5,5" Grid.Row="2" Grid.ColumnSpan="2"/>
