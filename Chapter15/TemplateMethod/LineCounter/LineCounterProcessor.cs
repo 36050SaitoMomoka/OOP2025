@@ -10,16 +10,21 @@ using static System.Net.Mime.MediaTypeNames;
 namespace LineCounter {
     internal class LineCounterProcessor : TextProcessor {
         private int _count = 0;
+        private string _text = "";
 
-        protected override void Initialize(string fname) => _count = 0;
+        protected override void Initialize(string fname) {
+            Console.WriteLine("検索したい単語を入力：");
+            _text = Console.ReadLine();
+            _count = 0;
+        }
 
         protected override void Execute(string line) {
-            var matches = Regex.Matches(line, @"\bprivate\b");
+            var matches = Regex.Matches(line, $@"\b{Regex.Escape(_text)}\b");
             foreach (Match match in matches) {
                 _count++;
             }
         }
 
-        protected override void Terminate() => Console.WriteLine("privateの個数：{0}個", _count);
+        protected override void Terminate() => Console.WriteLine($"{_text}の個数：{_count}個");
     }
 }
