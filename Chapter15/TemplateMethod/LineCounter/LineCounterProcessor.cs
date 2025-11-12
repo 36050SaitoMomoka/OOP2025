@@ -13,8 +13,8 @@ namespace LineCounter {
         private string _text = "";
 
         protected override void Initialize(string fname) {
-            Console.WriteLine("検索したい単語を入力：");
-            _text = Console.ReadLine();
+            Console.WriteLine("カウントしたい単語を入力：");
+            _text = Console.ReadLine() ?? "";
             _count = 0;
         }
 
