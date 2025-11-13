@@ -227,6 +227,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextFileProcessor", "Chapte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineCounter", "Chapter15\TemplateMethod\LineCounter\LineCounter.csproj", "{DCF5B721-D8B6-42B2-A0F8-4F30C9BE696E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Strategy", "Strategy", "{9EA957EA-CC36-4905-8D0A-0F9494373129}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistanceConverter", "Chapter15\Strategy\DistanceConverter\DistanceConverter.csproj", "{490A98ED-3922-4B3B-AC39-7ED537304E23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -541,6 +545,10 @@ Global
 		{DCF5B721-D8B6-42B2-A0F8-4F30C9BE696E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCF5B721-D8B6-42B2-A0F8-4F30C9BE696E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCF5B721-D8B6-42B2-A0F8-4F30C9BE696E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{490A98ED-3922-4B3B-AC39-7ED537304E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{490A98ED-3922-4B3B-AC39-7ED537304E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{490A98ED-3922-4B3B-AC39-7ED537304E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{490A98ED-3922-4B3B-AC39-7ED537304E23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -638,6 +646,8 @@ Global
 		{B1D3DE3E-A373-471A-A2DD-CA4141F43712} = {55085CFC-5343-4E6B-A30E-F0D229EDBF39}
 		{9EE40711-CC81-4E49-8DE6-04F9C99DFD0C} = {B1D3DE3E-A373-471A-A2DD-CA4141F43712}
 		{DCF5B721-D8B6-42B2-A0F8-4F30C9BE696E} = {B1D3DE3E-A373-471A-A2DD-CA4141F43712}
+		{9EA957EA-CC36-4905-8D0A-0F9494373129} = {55085CFC-5343-4E6B-A30E-F0D229EDBF39}
+		{490A98ED-3922-4B3B-AC39-7ED537304E23} = {9EA957EA-CC36-4905-8D0A-0F9494373129}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B515789-ED92-4DD8-A291-1B58A9F598CA}
