@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistanceConverter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,14 @@ namespace DistanceConverter {
 
         protected override double Ratio => 1;
         public override string UnitName => "メートル";
+    }
+
+    public class KilometerConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "kilometer" || name == UnitName;
+
+        protected override double Ratio => 1000.0;
+        public override string UnitName => "キロメートル";
     }
 
 
@@ -36,5 +45,13 @@ namespace DistanceConverter {
 
         protected override double Ratio => 0.9144;
         public override string UnitName => "ヤード";
+    }
+
+    public class MileConverter : ConverterBase {
+        public override bool IsMyUnit(string name) =>
+            name.ToLower() == "mile" || name == UnitName;
+
+        protected override double Ratio => 1609.344;
+        public override string UnitName => "マイル";
     }
 }
