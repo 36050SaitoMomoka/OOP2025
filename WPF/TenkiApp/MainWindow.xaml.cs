@@ -124,7 +124,6 @@ namespace TenkiApp {
             }
 
             string info = await GetWeatherAsync(location.Latitude, location.Longitude);
-            WeatherInfoText.Text = info;
 
             UpdateBackgroundByWeather(WeatherConditionText.Text);
         }

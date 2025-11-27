@@ -44,10 +44,10 @@
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0,0,0">
                     <ComboBox x:Name="PrefectureComboBox" Width="120" Height="24" FontSize="11"
-                              Margin="0,0,5,0" IsEditable="True" Text="都道府県を選択"
+                              Margin="0,0,5,0" IsEditable="True" Text="都道府県を選択" VerticalContentAlignment="Center"
                               SelectionChanged="PrefectureComboBox_SelectionChanged"/>
                     <ComboBox x:Name="CityComboBox" Width="120" Height="24" FontSize="11"
-                              Margin="0,0,5,0" IsEditable="True" Text="市区町村を選択"/>
+                              Margin="0,0,5,0" IsEditable="True" Text="市区町村を選択"  VerticalContentAlignment="Center"/>
                     <Button Content="検索" Width="60" Height="24" FontSize="11" Click="SearchButton_Click"/>
                 </StackPanel>
             </DockPanel>
@@ -63,22 +63,22 @@
                                MinWidth="200"/>
                 </Border>
 
-                <TextBlock x:Name="CurrentTempText" Text="--℃" FontSize="28" FontWeight="Bold" TextAlignment="Center" Margin="0,5,0,10"/>
+                <TextBlock x:Name="CurrentTempText" Text="--℃" FontSize="35" FontWeight="Bold" TextAlignment="Center" Margin="0,5,0,10"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
                     <StackPanel Orientation="Horizontal" Margin="0,0,20,0">
-                        <TextBlock Text="最高" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="MaxTempText" Text="{Binding MaxTemp}" FontSize="14" Foreground="Red" TextAlignment="Center"/>
+                        <TextBlock Text="最高" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="MaxTempText" Text="{Binding MaxTemp}" FontSize="20" Foreground="Red" TextAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="最低" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="MinTempText" Text="{Binding MinTemp}" FontSize="14" Foreground="Blue" TextAlignment="Center"/>
+                        <TextBlock Text="最低" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="MinTempText" Text="{Binding MinTemp}" FontSize="20" Foreground="Blue" TextAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
 
                 <TextBlock x:Name="WeatherConditionText" Text="" FontSize="16" FontStyle="Italic" TextAlignment="Center" Margin="0,0,0,5"/>
-                <TextBlock x:Name="WindSpeedText" Text="風速: -- m/s" FontSize="14" TextAlignment="Center" Margin="0,0,0,2"/>
-                <TextBlock x:Name="HumidityText" Text="湿度: --%" FontSize="14" TextAlignment="Center" Margin="0,0,0,2"/>
+                <TextBlock x:Name="WindSpeedText" Text="風速: -- m/s" FontSize="16" TextAlignment="Center" Margin="0,0,0,2"/>
+                <TextBlock x:Name="HumidityText" Text="湿度: --%" FontSize="16" TextAlignment="Center" Margin="0,0,0,2"/>
             </StackPanel>
 
             <!-- 右側のスペース（天気アイコン＋おすすめ情報） -->
@@ -110,6 +110,8 @@
                           VerticalScrollBarVisibility="Disabled"
                           Margin="0,10,0,0">
                 <ItemsControl x:Name="WeeklyWeatherPanel">
+                    <ItemsControl.Resources>
+                    </ItemsControl.Resources>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -121,10 +123,10 @@
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10"
                                     Padding="10" Margin="10" Background="#F9F9F9">
                                 <StackPanel Width="100" HorizontalAlignment="Center">
-                                    <TextBlock Text="{Binding Date}" FontSize="16" FontWeight="Bold" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Date}" FontSize="16" FontWeight="Bold" TextAlignment="Center" FontFamily="pack://application:,,,/Fonts/#たぬき油性マジック"/>
                                     <Image Source="{Binding Icon}" Width="80" Height="80" Margin="0,5"/>
-                                    <TextBlock Text="{Binding Temp}" FontSize="14" TextAlignment="Center"/>
-                                    <TextBlock Text="{Binding Condition}" FontSize="14" TextAlignment="Center"/>
+                                    <TextBlock Text="{Binding Temp}" FontSize="14" TextAlignment="Center" FontFamily="pack://application:,,,/Fonts/#たぬき油性マジック"/>
+                                    <TextBlock Text="{Binding Condition}" FontSize="14" TextAlignment="Center" FontFamily="pack://application:,,,/Fonts/#たぬき油性マジック"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
